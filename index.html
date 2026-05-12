@@ -50,14 +50,14 @@
     <a class="brand brand--logo" href="index.html" aria-label="KH Woodworks home" data-nav-logo><img class="brand__logo" src="assets/kh-logo-tight.png" alt="KH Woodworks" /></a>
     <nav class="nav__links" aria-label="Primary navigation">
       <a href="index.html" class="is-active" aria-current="page">Home</a>
-      <a href="services.html">Services</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <a href="#services">Services</a>
+      <a href="#process">Gallery</a>
+      <a href="#story">About</a>
+      <a href="#contact">Contact</a>
     </nav>
     <div class="nav__actions">
       <a class="nav__phone" href="tel:7858290504">785-829-0504</a>
-      <a class="nav__quote" href="contact.html">Request a Quote</a>
+      <a class="nav__quote" href="#contact">Request a Quote</a>
     </div>
   </div>
 </header>
@@ -78,41 +78,42 @@
   <section class="service-scroll" id="services">
     <div class="service-scroll__sticky">
       <div class="wrap service-scroll__intro">
+        <span class="eyebrow">Services</span>
         <h2>Custom cabinets, furniture, and millwork.</h2>
       </div>
       <div class="service-track" data-scroll-track>
-        <a class="service-panel" href="services.html#kitchens">
+        <article class="service-panel">
           <img src="https://static.wixstatic.com/media/44939b_a8bcf0f88b614aa5910bda1f65613905~mv2.png/v1/fill/w_900,h_1100,al_c,q_88,enc_avif,quality_auto/file.png" alt="Custom kitchen cabinets with a green island" />
           <h3>Kitchen Cabinets</h3><p>Custom cabinets using woods like cherry, hickory, ash, maple, and oak, with door fronts, stains, and paint colors selected for your space.</p>
-        </a>
-        <a class="service-panel" href="services.html#trim">
+        </article>
+        <article class="service-panel">
           <img src="https://static.wixstatic.com/media/44939b_160815a759eb4f5fbba243bd7b22e0e1~mv2.png/v1/fill/w_900,h_1100,al_c,q_88,enc_avif,quality_auto/file.png" alt="Custom trim and millwork detail" />
           <h3>Millwork</h3><p>Customized trim with unlimited profiles and shapes to bring a finishing touch to your space.</p>
-        </a>
-        <a class="service-panel" href="services.html#bathrooms">
+        </article>
+        <article class="service-panel">
           <img src="https://static.wixstatic.com/media/44939b_2a114e9f3f6042b8a469daa87a24f46d~mv2.jpeg/v1/fill/w_900,h_1100,al_c,q_88,enc_avif,quality_auto/file.jpeg" alt="Custom bathroom vanity cabinetry" />
           <h3>Bathroom Vanities</h3><p>Bathroom vanities are offered with a variety of different style options for your space.</p>
-        </a>
-        <a class="service-panel" href="services.html#built-ins">
+        </article>
+        <article class="service-panel">
           <img src="https://static.wixstatic.com/media/44939b_853bd00b2bb64f52892d0f21586f2794~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_88,enc_avif,quality_auto/file.jpg" alt="Custom pull-out built-in pantry storage" />
           <h3>Built-In Furniture</h3><p>Built-in furniture from library shelving to entertainment centers, made from your ideas.</p>
-        </a>
-        <a class="service-panel" href="services.html#laundry">
+        </article>
+        <article class="service-panel">
           <img src="https://static.wixstatic.com/media/44939b_51c5f9308559434c9d214d269aa0be59~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_88,enc_avif,quality_auto/file.jpg" alt="Laundry room cabinetry and countertop" />
           <h3>Laundry &amp; Mudrooms</h3><p>In small spaces, organization is key. KH Woodworks helps add style and functionality.</p>
-        </a>
-        <a class="service-panel" href="services.html#mantels">
+        </article>
+        <article class="service-panel">
           <img src="https://static.wixstatic.com/media/44939b_3122c446dd9f4fdabbd3f6d166b662f8~mv2.jpeg/v1/fill/w_900,h_1100,al_c,q_88,enc_avif,quality_auto/file.jpeg" alt="Custom wood fireplace mantel" />
           <h3>Fireplace Mantels</h3><p>From farmhouse-rustic to sleek and simple, mantels are built to fit the space perfectly.</p>
-        </a>
-        <a class="service-panel" href="services.html#commercial">
+        </article>
+        <article class="service-panel">
           <img src="assets/work/commercial-table.avif" alt="Custom commercial table and built-in bench" />
           <h3>Commercial Spaces</h3><p>Trim, cabinetry, shelving, and desks for companies and businesses around the Hays, Kansas area.</p>
-        </a>
-        <a class="service-panel" href="services.html#tables">
+        </article>
+        <article class="service-panel">
           <img src="https://static.wixstatic.com/media/44939b_707dac6a28104d35aca70f864e08f0c7~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_88,enc_avif,quality_auto/file.jpg" alt="Custom live edge wood table" />
           <h3>Tables</h3><p>From kitchen tables to conference tables, KH Woodworks creates functional and beautiful pieces for your space.</p>
-        </a>
+        </article>
       </div>
     </div>
   </section>
@@ -125,9 +126,10 @@
       <figure class="atelier-shot atelier-shot--portrait-a reveal" data-parallax data-speed="36">
         <img loading="lazy" src="assets/work/dark-bath-vanity.avif" alt="Dark custom bath vanity" />
       </figure>
-      <figure class="atelier-shot atelier-shot--small-a reveal" data-parallax data-speed="24">
-        <img loading="lazy" src="assets/work/oak-mantel.avif" alt="Custom oak fireplace mantel" />
-      </figure>
+      <aside class="atelier-shot atelier-note atelier-shot--small-a reveal" data-parallax data-speed="18">
+        <span>Featured Work</span>
+        <strong>Finished spaces, built-ins, mantels, and furniture shaped around the room.</strong>
+      </aside>
       <figure class="atelier-shot atelier-shot--wide-a reveal" data-parallax data-speed="-24">
         <img loading="lazy" src="assets/work/kitchen-warm.avif" alt="Warm wood kitchen cabinetry around a sink" />
       </figure>
@@ -138,7 +140,7 @@
         <img loading="lazy" src="assets/work/laundry-mudroom-cabinets.avif" alt="Laundry and mudroom cabinetry" />
       </figure>
       <figure class="atelier-shot atelier-shot--small-b reveal" data-parallax data-speed="-18">
-        <img loading="lazy" src="assets/work/live-edge-slab-cutting.avif" alt="Live edge slab woodworking in progress" />
+        <img loading="lazy" src="assets/work/live-edge-table.avif" alt="Custom live edge table" />
       </figure>
       <figure class="atelier-shot atelier-shot--wide-b reveal" data-parallax data-speed="-30">
         <img loading="lazy" src="assets/work/wood-kitchen.avif" alt="Finished wood kitchen cabinetry" />
@@ -153,62 +155,59 @@
         <img loading="lazy" src="assets/work/commercial-table.avif" alt="Custom wood table and built-in bench" />
       </figure>
       <figure class="atelier-shot atelier-shot--wide-c reveal" data-parallax data-speed="-20">
-        <img loading="lazy" src="assets/work/live-edge-slab-detail.avif" alt="Live edge slab wood detail" />
+        <img loading="lazy" src="assets/work/oak-mantel.avif" alt="Custom oak fireplace mantel" />
       </figure>
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap split reveal">
-      <div class="split__media"><img loading="lazy" src="https://static.wixstatic.com/media/44939b_345b539590ab4a149aaf9aee10e0be6c~mv2.jpg/v1/fill/w_900,h_1125,al_c,q_88,enc_avif,quality_auto/file.jpg" alt="Custom cabinetry craftsmanship by KH Woodworks" /></div>
-      <div>
-        <span class="eyebrow">The Story</span>
-        <h2>Customized woodworking and cabinetry for Hays and Ellis County.</h2>
-        <p>Located in Catharine, KS, KH Woodworks brings customized woodworking and cabinetry to the Hays and Ellis County area.</p>
-        <p>As a small, family business, KH Woodworks sees the importance of creating spaces and items that last a lifetime.</p>
-        <div class="hero__actions hero__actions--left">
-          <a class="btn btn--dark" href="about.html">About KH Woodworks</a>
-          <a class="btn" href="contact.html">Request a Quote</a>
-        </div>
+  <section class="story-section" id="story">
+    <div class="story-panel reveal">
+      <div class="story-panel__copy">
+        <h2>Our Story</h2>
+        <p>Born from a passion for handmade, high quality, and unique pieces, KH Woodworks strives for excellence in both craftsmanship and quality. Located in Catharine, KS, we desire to bring luxury to the Hays and Ellis County area through customized woodworking and cabinetry. As a small, family business, we see the importance of creating spaces and items that last a lifetime. Contact us to learn more about our process and to see what we can do for you.</p>
+        <a class="story-panel__button" href="#story">About Us</a>
+      </div>
+      <div class="story-panel__image">
+        <img loading="lazy" src="assets/work/live-edge-slab-cutting.avif" alt="KH Woodworks shaping a live edge slab in the shop" />
       </div>
     </div>
   </section>
 </main>
 
-<section class="cta">
-  <div class="wrap">
-    <h2>Contact KH Woodworks to discover your options.</h2>
-    <p>Call or request a quote for customized cabinets, furniture, and millwork in the Hays, Kansas area.</p>
+<section class="cta cta--premium" id="contact">
+  <div class="wrap cta__panel">
+    <div>
+      <span class="eyebrow">Start a Project</span>
+      <h2>Custom work starts with the room.</h2>
+      <p>Share rough dimensions, inspiration photos, or a design direction. KH Woodworks will help shape the cabinetry, furniture, or millwork around the way the space is used.</p>
+    </div>
     <div class="cta__actions">
       <a class="btn btn--light" href="tel:7858290504">Call 785-829-0504</a>
-      <a class="btn btn--ghost" href="contact.html">Request a Quote</a>
+      <a class="btn btn--ghost" href="mailto:khwoodworksco@gmail.com?subject=KH%20Woodworks%20project%20request">Email Project Details</a>
     </div>
   </div>
 </section>
 
 <footer class="footer">
-  <div class="wrap">
-    <div class="footer__mast">
+  <div class="wrap footer__inner">
+    <div class="footer__top">
       <a class="footer__brand" href="index.html" aria-label="KH Woodworks home"><img src="assets/kh-logo-tight.png" alt="KH Woodworks" /></a>
-      <p>At KH Woodworks, we create customized cabinets and furniture for homes and commercial businesses in the Hays, Kansas and surrounding area.</p>
-      <div class="footer__actions">
-        <a href="tel:7858290504">Call 785-829-0504</a>
-        <a href="contact.html">Request a Quote</a>
-      </div>
+      <p>Customized cabinetry, furniture, and millwork for homes and commercial spaces in the Hays, Kansas area.</p>
+      <a class="footer__primary" href="mailto:khwoodworksco@gmail.com?subject=KH%20Woodworks%20project%20request">Start a Project</a>
     </div>
     <div class="footer__grid">
-      <div><h4>Pages</h4><a href="services.html">Services</a><a href="gallery.html">Gallery</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
-      <div><h4>Services</h4><a href="services.html#kitchens">Kitchen Cabinets</a><a href="services.html#trim">Millwork</a><a href="services.html#built-ins">Built-In Furniture</a><a href="services.html#tables">Tables</a></div>
-      <div><h4>Contact</h4><a href="tel:7858290504">785-829-0504</a><a href="mailto:khwoodworksco@gmail.com">khwoodworksco@gmail.com</a></div>
-      <div><h4>Follow</h4><a href="https://www.instagram.com/kh_woodworks_co/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/KHWoodworksCo/" target="_blank" rel="noopener">Facebook</a></div>
+      <div class="footer__column"><h4>Studio</h4><a href="#services">Services</a><a href="#process">Featured Work</a><a href="#story">Our Story</a><a href="#contact">Contact</a></div>
+      <div class="footer__column"><h4>Capabilities</h4><span>Kitchen Cabinets</span><span>Built-In Furniture</span><span>Fireplace Mantels</span><span>Commercial Spaces</span></div>
+      <div class="footer__column"><h4>Contact</h4><a href="tel:7858290504">785-829-0504</a><a href="mailto:khwoodworksco@gmail.com">khwoodworksco@gmail.com</a><span>Catharine, KS</span></div>
+      <div class="footer__column"><h4>Follow</h4><a href="https://www.instagram.com/kh_woodworks_co/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/KHWoodworksCo/" target="_blank" rel="noopener">Facebook</a></div>
     </div>
-    <div class="footer__bottom"><span>© 2026 KH Woodworks</span><span>Hays, Kansas and surrounding area</span></div>
+    <div class="footer__bottom"><span>© 2026 KH Woodworks</span><span>Serving Hays, Ellis County, and surrounding Kansas communities</span></div>
   </div>
 </footer>
 
 <div class="mobile-cta" aria-label="Quick contact actions">
   <a href="tel:7858290504">Call</a>
-  <a href="contact.html">Quote</a>
+  <a href="#contact">Quote</a>
 </div>
 
 <script src="assets/site.js"></script>
