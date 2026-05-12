@@ -16,10 +16,6 @@
     $$(".reveal").forEach((element) => element.classList.add("is-in"));
   }
 
-  $$(".marquee__track").forEach((track) => {
-    track.innerHTML += track.innerHTML;
-  });
-
   const filter = document.querySelector(".gallery-filter");
   if (filter) {
     filter.addEventListener("click", (event) => {
@@ -61,15 +57,23 @@
   const scrollTrack = document.querySelector("[data-scroll-track]");
   const scrollSection = scrollTrack ? scrollTrack.closest(".service-scroll") : null;
   if (scrollTrack && scrollSection && !reduceMotion) {
+    const measureSection = () => {
+      const maxTravel = Math.max(0, scrollTrack.scrollWidth - window.innerWidth + 96);
+      scrollSection.style.height = `${Math.round(maxTravel + window.innerHeight * 1.45)}px`;
+    };
     const updateTrack = () => {
       const rect = scrollSection.getBoundingClientRect();
-      const maxTravel = scrollTrack.scrollWidth - window.innerWidth + 48;
+      const maxTravel = Math.max(0, scrollTrack.scrollWidth - window.innerWidth + 96);
       const scrollable = scrollSection.offsetHeight - window.innerHeight;
       const progress = Math.min(1, Math.max(0, -rect.top / Math.max(1, scrollable)));
       scrollTrack.style.transform = `translate3d(${-maxTravel * progress}px,0,0)`;
     };
+    measureSection();
     updateTrack();
     window.addEventListener("scroll", updateTrack, { passive: true });
-    window.addEventListener("resize", updateTrack);
+    window.addEventListener("resize", () => {
+      measureSection();
+      updateTrack();
+    });
   }
 })();
