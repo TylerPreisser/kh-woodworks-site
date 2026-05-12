@@ -57,4 +57,19 @@
       window.location.href = `mailto:khwoodworksco@gmail.com?subject=${subject}&body=${body}`;
     });
   }
+
+  const scrollTrack = document.querySelector("[data-scroll-track]");
+  const scrollSection = scrollTrack ? scrollTrack.closest(".service-scroll") : null;
+  if (scrollTrack && scrollSection && !reduceMotion) {
+    const updateTrack = () => {
+      const rect = scrollSection.getBoundingClientRect();
+      const maxTravel = scrollTrack.scrollWidth - window.innerWidth + 48;
+      const scrollable = scrollSection.offsetHeight - window.innerHeight;
+      const progress = Math.min(1, Math.max(0, -rect.top / Math.max(1, scrollable)));
+      scrollTrack.style.transform = `translate3d(${-maxTravel * progress}px,0,0)`;
+    };
+    updateTrack();
+    window.addEventListener("scroll", updateTrack, { passive: true });
+    window.addEventListener("resize", updateTrack);
+  }
 })();
