@@ -72,29 +72,31 @@
   const scrollSection = scrollTrack ? scrollTrack.closest(".service-scroll") : null;
   if (scrollTrack && scrollSection) {
     const nav = document.querySelector(".nav");
-    const desktop = window.matchMedia("(min-width: 981px)");
     let maxTravel = 0;
     let maxScroll = 1;
     const navHeight = () => nav ? nav.offsetHeight : 68;
+    const viewportHeight = () => Math.round(window.visualViewport?.height || window.innerHeight || 1);
     const resetSection = () => {
       scrollSection.style.height = "";
+      scrollSection.style.removeProperty("--service-scroll-height");
       scrollSection.style.removeProperty("--nav-h");
       scrollTrack.style.transform = "";
     };
     const measureSection = () => {
-      if (!desktop.matches || reduceMotion) {
+      if (reduceMotion) {
         resetSection();
         return false;
       }
-      const stickyHeight = window.innerHeight;
+      const stickyHeight = viewportHeight();
       maxTravel = Math.max(0, scrollTrack.scrollWidth - window.innerWidth);
       scrollSection.style.setProperty("--nav-h", `${navHeight()}px`);
+      scrollSection.style.setProperty("--service-scroll-height", `${Math.ceil(stickyHeight + maxTravel)}px`);
       scrollSection.style.height = `${Math.ceil(stickyHeight + maxTravel)}px`;
       maxScroll = Math.max(1, scrollSection.offsetHeight - stickyHeight);
       return true;
     };
     const updateTrack = () => {
-      if (!desktop.matches || reduceMotion) return;
+      if (reduceMotion) return;
       const rect = scrollSection.getBoundingClientRect();
       const progress = Math.min(1, Math.max(0, -rect.top / maxScroll));
       scrollTrack.style.transform = `translate3d(${-maxTravel * progress}px,0,0)`;
@@ -110,7 +112,7 @@
       measureSection();
       updateTrack();
     });
-    desktop.addEventListener("change", () => {
+    window.visualViewport?.addEventListener("resize", () => {
       measureSection();
       updateTrack();
     });
@@ -118,9 +120,16 @@
 
   const parallaxItems = $$("[data-parallax]");
   if (parallaxItems.length && !reduceMotion) {
+    const parallaxDesktop = window.matchMedia("(min-width: 981px)");
     let ticking = false;
     const updateParallax = () => {
       ticking = false;
+      if (!parallaxDesktop.matches) {
+        parallaxItems.forEach((item) => {
+          item.style.transform = "";
+        });
+        return;
+      }
       const viewportHeight = window.innerHeight || 1;
       parallaxItems.forEach((item) => {
         const rect = item.getBoundingClientRect();
@@ -140,5 +149,6 @@
     window.addEventListener("scroll", requestParallax, { passive: true });
     window.addEventListener("resize", requestParallax);
     window.addEventListener("load", updateParallax);
+    parallaxDesktop.addEventListener("change", updateParallax);
   }
 })();
