@@ -56,20 +56,31 @@
 
   const scrollTrack = document.querySelector("[data-scroll-track]");
   const scrollSection = scrollTrack ? scrollTrack.closest(".service-scroll") : null;
-  if (scrollTrack && scrollSection && !reduceMotion) {
+  if (scrollTrack && scrollSection) {
     const nav = document.querySelector(".nav");
+    const desktop = window.matchMedia("(min-width: 981px)");
     let maxTravel = 0;
     let maxScroll = 1;
     const navHeight = () => nav ? nav.offsetHeight : 68;
+    const resetSection = () => {
+      scrollSection.style.height = "";
+      scrollSection.style.removeProperty("--nav-h");
+      scrollTrack.style.transform = "";
+    };
     const measureSection = () => {
-      const stickyHeight = Math.max(520, window.innerHeight - navHeight());
+      if (!desktop.matches || reduceMotion) {
+        resetSection();
+        return false;
+      }
+      const stickyHeight = window.innerHeight;
       maxTravel = Math.max(0, scrollTrack.scrollWidth - window.innerWidth);
       scrollSection.style.setProperty("--nav-h", `${navHeight()}px`);
-      scrollSection.style.setProperty("--sticky-h", `${stickyHeight}px`);
       scrollSection.style.height = `${Math.ceil(stickyHeight + maxTravel)}px`;
       maxScroll = Math.max(1, scrollSection.offsetHeight - stickyHeight);
+      return true;
     };
     const updateTrack = () => {
+      if (!desktop.matches || reduceMotion) return;
       const rect = scrollSection.getBoundingClientRect();
       const progress = Math.min(1, Math.max(0, -rect.top / maxScroll));
       scrollTrack.style.transform = `translate3d(${-maxTravel * progress}px,0,0)`;
@@ -82,6 +93,10 @@
       updateTrack();
     });
     window.addEventListener("load", () => {
+      measureSection();
+      updateTrack();
+    });
+    desktop.addEventListener("change", () => {
       measureSection();
       updateTrack();
     });
