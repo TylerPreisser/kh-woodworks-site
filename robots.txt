@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tylerpreisser.github.io/kh-woodworks-site/sitemap.xml
