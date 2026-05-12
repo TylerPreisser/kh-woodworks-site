@@ -86,6 +86,18 @@ button { cursor: pointer; }
   gap: 34px;
 }
 .brand { display: inline-flex; align-items: center; gap: 12px; }
+.brand--logo {
+  background: var(--ink);
+  height: 58px;
+  width: 160px;
+  padding: 6px 12px;
+  overflow: hidden;
+  justify-content: center;
+}
+.brand__logo {
+  width: 126px;
+  height: auto;
+}
 .brand__mark {
   width: 38px;
   height: 38px;
@@ -572,31 +584,21 @@ body { animation: pageIn .7s ease both; }
   display: grid;
   place-items: center;
   align-content: center;
-  gap: 28px;
+  gap: 30px;
   text-align: center;
   padding-top: clamp(70px, 8vw, 120px);
   padding-bottom: clamp(70px, 8vw, 120px);
 }
 .hero__logo {
-  width: min(520px, 70vw);
+  width: min(560px, 72vw);
   height: auto;
   filter: drop-shadow(0 34px 80px rgba(0, 0, 0, .62));
   animation: riseIn 1s cubic-bezier(.2,.7,.2,1) .18s both;
 }
-.hero__center p {
-  max-width: 760px;
-  margin: 0;
-  color: rgba(255, 250, 242, .86);
-  font-family: var(--serif);
-  font-size: clamp(25px, 3vw, 43px);
-  line-height: 1.05;
-  text-wrap: balance;
-  animation: riseIn 1s cubic-bezier(.2,.7,.2,1) .34s both;
-}
 .hero__center .hero__actions {
   justify-content: center;
   margin-top: 8px;
-  animation: riseIn 1s cubic-bezier(.2,.7,.2,1) .5s both;
+  animation: riseIn 1s cubic-bezier(.2,.7,.2,1) .34s both;
 }
 .hero__center h1 {
   position: absolute;
@@ -671,46 +673,35 @@ body { animation: pageIn .7s ease both; }
 
 .service-scroll {
   position: relative;
-  min-height: 260vh;
+  min-height: calc(100vh - 68px);
   background: var(--cream);
   border-bottom: 1px solid var(--line);
 }
 .service-scroll__sticky {
-  position: sticky;
+  position: relative;
   top: 68px;
   height: calc(100vh - 68px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   gap: clamp(26px, 4vh, 46px);
-  padding: clamp(26px, 5vh, 58px) 0;
+  padding: clamp(34px, 5vh, 54px) 0 0;
 }
-.service-scroll__intro {
-  position: absolute;
-  top: clamp(30px, 5vh, 56px);
-  left: 0;
-  right: 0;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 140px minmax(0, 920px);
-  gap: clamp(24px, 4vw, 54px);
-  align-items: end;
-}
+.service-scroll__intro { display: none; }
 .service-scroll__intro h2 {
-  margin: 0;
-  font-family: var(--serif);
-  font-size: clamp(34px, 4.4vw, 64px);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: 0;
-  text-wrap: balance;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 .service-track {
   display: flex;
   gap: clamp(18px, 2vw, 28px);
   width: max-content;
-  margin-top: clamp(118px, 15vh, 170px);
+  margin-top: 0;
   padding-left: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
   padding-right: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
   will-change: transform;
@@ -719,7 +710,7 @@ body { animation: pageIn .7s ease both; }
 .service-panel {
   position: relative;
   flex: 0 0 min(560px, 72vw);
-  height: min(760px, 76vh);
+  height: calc(100vh - 156px);
   overflow: hidden;
   background: #17120e;
   color: var(--cream);
@@ -844,6 +835,8 @@ body { animation: pageIn .7s ease both; }
     align-content: center;
   }
   .brand { flex: 1 1 100%; }
+  .brand--logo { width: 148px; height: 52px; }
+  .brand__logo { width: 112px; }
   .nav__links {
     order: 2;
     flex: 1 1 100%;
@@ -867,12 +860,7 @@ body { animation: pageIn .7s ease both; }
     padding-bottom: 74px;
     gap: 22px;
   }
-  .hero__logo { width: min(250px, 64vw); }
-  .hero__center p {
-    max-width: 330px;
-    font-size: 25px;
-    line-height: 1.08;
-  }
+  .hero__logo { width: min(270px, 70vw); }
   .hero__content,
   .hero__content p,
   .hero__actions { width: 100%; max-width: 100%; }

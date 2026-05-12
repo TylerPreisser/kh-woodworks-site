@@ -57,20 +57,29 @@
   const scrollTrack = document.querySelector("[data-scroll-track]");
   const scrollSection = scrollTrack ? scrollTrack.closest(".service-scroll") : null;
   if (scrollTrack && scrollSection && !reduceMotion) {
+    let progress = 0;
     const measureSection = () => {
       const maxTravel = Math.max(0, scrollTrack.scrollWidth - window.innerWidth + 96);
-      scrollSection.style.height = `${Math.round(maxTravel + window.innerHeight * 1.45)}px`;
+      scrollSection.style.height = `${window.innerHeight - 68}px`;
+      return maxTravel;
     };
-    const updateTrack = () => {
-      const rect = scrollSection.getBoundingClientRect();
+    const updateTrack = (nextProgress = progress) => {
       const maxTravel = Math.max(0, scrollTrack.scrollWidth - window.innerWidth + 96);
-      const scrollable = scrollSection.offsetHeight - window.innerHeight;
-      const progress = Math.min(1, Math.max(0, -rect.top / Math.max(1, scrollable)));
+      progress = Math.min(1, Math.max(0, nextProgress));
       scrollTrack.style.transform = `translate3d(${-maxTravel * progress}px,0,0)`;
     };
     measureSection();
     updateTrack();
-    window.addEventListener("scroll", updateTrack, { passive: true });
+    window.addEventListener("wheel", (event) => {
+      if (window.innerWidth < 981) return;
+      const rect = scrollSection.getBoundingClientRect();
+      const navOffset = 68;
+      const isActive = rect.top <= navOffset + 2 && rect.bottom >= window.innerHeight * 0.62;
+      if (!isActive) return;
+      if ((event.deltaY < 0 && progress <= 0) || (event.deltaY > 0 && progress >= 1)) return;
+      event.preventDefault();
+      updateTrack(progress + event.deltaY / 2200);
+    }, { passive: false });
     window.addEventListener("resize", () => {
       measureSection();
       updateTrack();
