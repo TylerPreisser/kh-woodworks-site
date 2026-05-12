@@ -16,6 +16,21 @@
     window.addEventListener("resize", setNavState);
   }
 
+  const heroVideo = document.querySelector(".hero__video");
+  if (heroVideo) {
+    heroVideo.muted = true;
+    heroVideo.playsInline = true;
+    const playHeroVideo = () => {
+      const playAttempt = heroVideo.play();
+      if (playAttempt && typeof playAttempt.catch === "function") playAttempt.catch(() => {});
+    };
+    playHeroVideo();
+    window.addEventListener("load", playHeroVideo, { once: true });
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) playHeroVideo();
+    });
+  }
+
   if (!reduceMotion && "IntersectionObserver" in window) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {

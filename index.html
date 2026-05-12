@@ -24,6 +24,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="preload" href="assets/hero-loop-mobile.m4v" as="video" type="video/mp4" media="(max-width: 640px)" />
+<link rel="preload" href="assets/hero-loop.mp4" as="video" type="video/mp4" media="(min-width: 641px)" />
 <link rel="stylesheet" href="assets/styles.css" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -77,7 +79,8 @@
 
 <main>
   <section class="hero hero--video">
-    <video class="hero__video" autoplay muted loop playsinline preload="auto" poster="https://static.wixstatic.com/media/44939b_6de8ef9576d24951b996badbd806b1f2~mv2.jpg/v1/fill/w_1800,h_1200,al_c,q_88,enc_avif,quality_auto/file.jpg">
+    <video class="hero__video" autoplay muted loop playsinline preload="auto">
+      <source media="(max-width: 640px)" src="assets/hero-loop-mobile.m4v" type="video/mp4" />
       <source src="assets/hero-loop.mp4" type="video/mp4" />
     </video>
     <div class="hero__shade"></div>
@@ -95,27 +98,27 @@
       </div>
       <div class="service-track" data-scroll-track>
         <article class="service-panel">
-          <img src="https://static.wixstatic.com/media/44939b_a8bcf0f88b614aa5910bda1f65613905~mv2.png/v1/fill/w_900,h_1100,al_c,q_88,enc_avif,quality_auto/file.png" alt="Custom kitchen cabinets with a green island" />
+          <img src="assets/work/green-island.avif" alt="Custom kitchen cabinets with a green island" />
           <h3>Kitchen Cabinets</h3><p>Custom cabinets using woods like cherry, hickory, ash, maple, and oak, with door fronts, stains, and paint colors selected for your space.</p>
         </article>
         <article class="service-panel">
-          <img src="https://static.wixstatic.com/media/44939b_160815a759eb4f5fbba243bd7b22e0e1~mv2.png/v1/fill/w_900,h_1100,al_c,q_88,enc_avif,quality_auto/file.png" alt="Custom trim and millwork detail" />
+          <img src="assets/work/millwork-trim.avif" alt="Custom trim and millwork detail" />
           <h3>Millwork</h3><p>Customized trim with unlimited profiles and shapes to bring a finishing touch to your space.</p>
         </article>
         <article class="service-panel">
-          <img src="https://static.wixstatic.com/media/44939b_2a114e9f3f6042b8a469daa87a24f46d~mv2.jpeg/v1/fill/w_900,h_1100,al_c,q_88,enc_avif,quality_auto/file.jpeg" alt="Custom bathroom vanity cabinetry" />
+          <img src="assets/work/dark-bath-vanity.avif" alt="Custom bathroom vanity cabinetry" />
           <h3>Bathroom Vanities</h3><p>Bathroom vanities are offered with a variety of different style options for your space.</p>
         </article>
         <article class="service-panel">
-          <img src="https://static.wixstatic.com/media/44939b_853bd00b2bb64f52892d0f21586f2794~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_88,enc_avif,quality_auto/file.jpg" alt="Custom pull-out built-in pantry storage" />
+          <img src="assets/work/pantry-pullout-open.avif" alt="Custom pull-out built-in pantry storage" />
           <h3>Built-In Furniture</h3><p>Built-in furniture from library shelving to entertainment centers, made from your ideas.</p>
         </article>
         <article class="service-panel">
-          <img src="https://static.wixstatic.com/media/44939b_51c5f9308559434c9d214d269aa0be59~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_88,enc_avif,quality_auto/file.jpg" alt="Laundry room cabinetry and countertop" />
+          <img src="assets/work/laundry-room.avif" alt="Laundry room cabinetry and countertop" />
           <h3>Laundry &amp; Mudrooms</h3><p>In small spaces, organization is key. KH Woodworks helps add style and functionality.</p>
         </article>
         <article class="service-panel">
-          <img src="https://static.wixstatic.com/media/44939b_3122c446dd9f4fdabbd3f6d166b662f8~mv2.jpeg/v1/fill/w_900,h_1100,al_c,q_88,enc_avif,quality_auto/file.jpeg" alt="Custom wood fireplace mantel" />
+          <img src="assets/work/fireplace-mantel.avif" alt="Custom wood fireplace mantel" />
           <h3>Fireplace Mantels</h3><p>From farmhouse-rustic to sleek and simple, mantels are built to fit the space perfectly.</p>
         </article>
         <article class="service-panel">
@@ -123,7 +126,7 @@
           <h3>Commercial Spaces</h3><p>Trim, cabinetry, shelving, and desks for companies and businesses around the Hays, Kansas area.</p>
         </article>
         <article class="service-panel">
-          <img src="https://static.wixstatic.com/media/44939b_707dac6a28104d35aca70f864e08f0c7~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_88,enc_avif,quality_auto/file.jpg" alt="Custom live edge wood table" />
+          <img src="assets/work/live-edge-table.avif" alt="Custom live edge wood table" />
           <h3>Tables</h3><p>From kitchen tables to conference tables, KH Woodworks creates functional and beautiful pieces for your space.</p>
         </article>
       </div>
