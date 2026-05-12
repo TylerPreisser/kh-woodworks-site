@@ -47,7 +47,7 @@
 <body>
 <header class="nav" data-site-nav>
   <div class="wrap nav__bar">
-    <a class="brand brand--logo" href="index.html" aria-label="KH Woodworks home"><img class="brand__logo" src="assets/kh-logo-tight.png" alt="KH Woodworks" /></a>
+    <a class="brand brand--logo" href="index.html" aria-label="KH Woodworks home" data-nav-logo><img class="brand__logo" src="assets/kh-logo-tight.png" alt="KH Woodworks" /></a>
     <nav class="nav__links" aria-label="Primary navigation">
       <a href="index.html" class="is-active" aria-current="page">Home</a>
       <a href="services.html">Services</a>
@@ -58,31 +58,9 @@
     <div class="nav__actions">
       <a class="nav__phone" href="tel:7858290504">785-829-0504</a>
       <a class="nav__quote" href="contact.html">Request a Quote</a>
-      <button class="nav__menu" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="site-menu" data-menu-toggle><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
-<div class="menu-overlay" id="site-menu" aria-hidden="true" data-menu-overlay>
-  <div class="menu-overlay__top wrap">
-    <img src="assets/kh-logo-tight.png" alt="KH Woodworks" />
-    <button class="menu-overlay__close" type="button" aria-label="Close navigation menu" data-menu-close>Close</button>
-  </div>
-  <div class="menu-overlay__body wrap">
-    <nav aria-label="Expanded navigation">
-      <a href="index.html">Home</a>
-      <a href="services.html">Services</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <div class="menu-overlay__contact">
-      <span>Start a Project</span>
-      <a href="tel:7858290504">785-829-0504</a>
-      <a href="mailto:khwoodworksco@gmail.com">khwoodworksco@gmail.com</a>
-      <p>Custom cabinetry, built-ins, furniture, and millwork for Hays, Kansas and surrounding communities.</p>
-    </div>
-  </div>
-</div>
 
 <main>
   <section class="hero hero--video">
@@ -97,6 +75,7 @@
         <a class="btn btn--ghost" href="contact.html">Request a Quote</a>
       </div>
       <h1>KH Woodworks creates customized cabinets and furniture for homes and commercial businesses in Hays, Kansas and surrounding communities.</h1>
+      <a class="scroll-cue" href="#services" aria-label="Scroll down to services"><span>Scroll</span><i></i></a>
     </div>
   </section>
 
@@ -141,33 +120,51 @@
     </div>
   </section>
 
-  <section class="atelier" id="process">
-    <div class="wrap atelier__intro reveal">
-      <span class="eyebrow">Our Process</span>
-      <h2>Built like furniture. Planned like architecture.</h2>
-      <p>KH Woodworks pairs careful site measurements with cabinetry, furniture, and millwork that feel integrated into the room from the first sketch.</p>
-    </div>
-    <div class="wrap atelier__stage">
-      <div class="atelier__copy reveal">
+  <section class="atelier" id="process" aria-label="Featured KH Woodworks projects">
+    <div class="wrap atelier__gallery">
+      <figure class="atelier-shot atelier-shot--hero reveal" data-parallax data-speed="-32">
+        <img loading="lazy" src="assets/work/green-island.avif" alt="Custom kitchen cabinets with a green island" />
+        <figcaption><strong>Kitchen Cabinetry</strong><span>Custom storage planned around the room.</span></figcaption>
+      </figure>
+      <figure class="atelier-shot atelier-shot--portrait reveal" data-parallax data-speed="42">
+        <img loading="lazy" src="assets/work/pantry-pullout.avif" alt="Custom pantry pull-out storage" />
+      </figure>
+      <div class="atelier-tile atelier-tile--light reveal">
         <span>Made for the room</span>
-        <h3>Every door line, storage need, and finish choice has to earn its place.</h3>
-        <p>Bring a finished design, a rough idea, or the dimensions of a room that needs to work harder. KH Woodworks turns those constraints into handmade pieces with proportion, utility, and long-term durability in mind.</p>
-        <a href="contact.html">Start a quote</a>
+        <p>Built-ins, vanities, mantels, tables, and cabinetry shaped around real dimensions and daily use.</p>
+        <a href="gallery.html">View the gallery</a>
       </div>
-      <div class="atelier__frames">
-        <figure class="atelier__frame atelier__frame--wide reveal" data-parallax data-speed="-34">
-          <img loading="lazy" src="https://static.wixstatic.com/media/44939b_6de8ef9576d24951b996badbd806b1f2~mv2.jpg/v1/fill/w_1500,h_980,al_c,q_88,enc_avif,quality_auto/file.jpg" alt="Finished custom kitchen cabinetry by KH Woodworks" />
-          <figcaption><strong>Cabinetry</strong><span>Room-scaled storage with furniture-level detailing.</span></figcaption>
-        </figure>
-        <figure class="atelier__frame atelier__frame--tall reveal" data-parallax data-speed="42">
-          <img loading="lazy" src="https://static.wixstatic.com/media/44939b_f05b104ad56f4cd09a51b42e63ddfc9b~mv2.jpg/v1/fill/w_720,h_900,al_c,q_88,enc_avif,quality_auto/file.jpg" alt="Custom pull-out storage drawer detail" />
-          <figcaption><strong>Utility</strong><span>Pull-outs, built-ins, and storage details made for daily use.</span></figcaption>
-        </figure>
-        <div class="atelier__note reveal">
-          <span>Craft and fit</span>
-          <p>Cabinets, tables, mantels, and millwork are built around real dimensions, real materials, and the way the space is lived in.</p>
-        </div>
+      <figure class="atelier-shot atelier-shot--wide reveal" data-parallax data-speed="-24">
+        <img loading="lazy" src="assets/work/wood-kitchen.avif" alt="Finished wood kitchen cabinetry" />
+      </figure>
+      <figure class="atelier-shot atelier-shot--small reveal" data-parallax data-speed="28">
+        <img loading="lazy" src="assets/work/drawer-storage.avif" alt="Custom pull-out drawer storage detail" />
+        <figcaption><strong>Details</strong><span>Storage that looks finished when open.</span></figcaption>
+      </figure>
+      <figure class="atelier-shot atelier-shot--tall reveal" data-parallax data-speed="36">
+        <img loading="lazy" src="assets/work/laundry-room.avif" alt="Laundry room cabinetry and storage" />
+      </figure>
+      <figure class="atelier-shot atelier-shot--mantel reveal" data-parallax data-speed="-30">
+        <img loading="lazy" src="assets/work/fireplace-mantel.avif" alt="Custom white fireplace mantel" />
+        <figcaption><strong>Mantels</strong><span>Clean profiles built to fit the wall.</span></figcaption>
+      </figure>
+      <figure class="atelier-shot atelier-shot--square reveal" data-parallax data-speed="22">
+        <img loading="lazy" src="assets/work/window-builtin.avif" alt="White oak below-window cabinetry" />
+      </figure>
+      <div class="atelier-tile atelier-tile--dark reveal">
+        <span>Craft and fit</span>
+        <p>Every line has to work with the room: finish, proportion, storage, and the way the piece will be used every day.</p>
       </div>
+      <figure class="atelier-shot atelier-shot--vanity reveal" data-parallax data-speed="-26">
+        <img loading="lazy" src="assets/work/bath-vanity.jpeg" alt="Custom bathroom vanity cabinetry" />
+      </figure>
+      <figure class="atelier-shot atelier-shot--trim reveal" data-parallax data-speed="32">
+        <img loading="lazy" src="assets/work/millwork-trim.avif" alt="Custom trim and millwork detail" />
+      </figure>
+      <figure class="atelier-shot atelier-shot--table reveal" data-parallax data-speed="-18">
+        <img loading="lazy" src="assets/work/live-edge-table.avif" alt="Live edge custom wood table" />
+        <figcaption><strong>Furniture</strong><span>Tables and custom pieces with presence.</span></figcaption>
+      </figure>
     </div>
   </section>
 

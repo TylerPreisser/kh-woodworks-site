@@ -4,37 +4,16 @@
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const siteNav = document.querySelector("[data-site-nav]");
   if (siteNav) {
-    const setNavState = () => siteNav.classList.toggle("is-scrolled", window.scrollY > 12);
+    const heroLogo = document.querySelector(".hero__logo");
+    const setNavState = () => {
+      const scrolled = window.scrollY > 12;
+      const showLogo = heroLogo ? heroLogo.getBoundingClientRect().bottom <= siteNav.offsetHeight + 10 : true;
+      siteNav.classList.toggle("is-scrolled", scrolled);
+      siteNav.classList.toggle("is-logo-visible", showLogo);
+    };
     setNavState();
     window.addEventListener("scroll", setNavState, { passive: true });
-  }
-
-  const menuOverlay = document.querySelector("[data-menu-overlay]");
-  const menuToggle = document.querySelector("[data-menu-toggle]");
-  if (menuOverlay && menuToggle) {
-    const closeButtons = $$("[data-menu-close]", menuOverlay);
-    const focusableSelector = "a, button, [tabindex]:not([tabindex='-1'])";
-    const setMenu = (open) => {
-      menuOverlay.classList.toggle("is-open", open);
-      menuOverlay.setAttribute("aria-hidden", open ? "false" : "true");
-      menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
-      document.body.classList.toggle("nav-open", open);
-      if (open) {
-        const firstFocusable = menuOverlay.querySelector(focusableSelector);
-        if (firstFocusable) firstFocusable.focus({ preventScroll: true });
-      } else {
-        menuToggle.focus({ preventScroll: true });
-      }
-    };
-    menuToggle.addEventListener("click", () => setMenu(menuToggle.getAttribute("aria-expanded") !== "true"));
-    closeButtons.forEach((button) => button.addEventListener("click", () => setMenu(false)));
-    $$(".menu-overlay a", menuOverlay).forEach((link) => link.addEventListener("click", () => setMenu(false)));
-    menuOverlay.addEventListener("click", (event) => {
-      if (event.target === menuOverlay) setMenu(false);
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && menuToggle.getAttribute("aria-expanded") === "true") setMenu(false);
-    });
+    window.addEventListener("resize", setNavState);
   }
 
   if (!reduceMotion && "IntersectionObserver" in window) {
