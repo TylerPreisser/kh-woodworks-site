@@ -6030,30 +6030,17 @@ body {
 }
 
 @media (max-width: 980px) {
-  .service-track {
+  .service-scroll:not(.is-scroll-enhanced) .service-track {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-x: contain;
     scroll-behavior: auto;
     transform: none !important;
   }
 
-  .service-scroll.is-scroll-enhanced {
-    height: auto !important;
-    min-height: 0 !important;
-  }
-
-  .service-scroll.is-scroll-enhanced .service-scroll__sticky {
-    position: relative !important;
-    top: auto !important;
-    height: auto !important;
-    min-height: 0 !important;
-  }
-
   .service-scroll.is-scroll-enhanced .service-track {
-    width: auto !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-    touch-action: pan-x pan-y !important;
+    -webkit-overflow-scrolling: auto;
+    overscroll-behavior: contain;
+    will-change: transform;
   }
 
   .nav__menu {
@@ -6129,14 +6116,29 @@ body {
   }
 
   .footer__cta h2 {
-    max-width: 8ch;
+    max-width: none;
     font-family: var(--serif);
-    font-size: clamp(46px, 15vw, 62px);
-    line-height: .92;
+    font-size: clamp(42px, 13vw, 56px);
+    line-height: .94;
+    white-space: nowrap;
+  }
+
+  .footer__title-mobile {
+    white-space: nowrap;
+  }
+
+  .footer__bottom {
+    width: 100%;
+    justify-content: center !important;
+    padding-inline: 24px;
+    text-align: center;
   }
 
   .footer__bottom span:first-child {
-    max-width: 28ch;
+    display: block;
+    max-width: 30ch;
+    margin-inline: auto;
     line-height: 1.45;
+    text-align: center;
   }
 }
