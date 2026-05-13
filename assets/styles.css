@@ -5918,14 +5918,14 @@ body {
   }
 
   [data-theme="light"] .story-section {
-    background:
-      linear-gradient(180deg, var(--cream) 0%, var(--paper) 100%) !important;
-    border-top: 1px solid var(--line);
+    background: var(--linen) !important;
+    border-top: 0;
+    border-bottom: 0;
     color: var(--ink) !important;
   }
 
   [data-theme="light"] .story-panel__copy {
-    background: var(--cream);
+    background: transparent !important;
   }
 
   [data-theme="light"] .story-panel__copy .eyebrow {
@@ -5965,9 +5965,8 @@ body {
   }
 
   [data-theme="light"] .footer {
-    background:
-      radial-gradient(circle at 14% 18%, rgba(155, 118, 88, .16), rgba(155, 118, 88, 0) 34%),
-      linear-gradient(180deg, var(--paper) 0%, var(--linen) 100%) !important;
+    margin-top: -1px;
+    background: var(--linen) !important;
     color: var(--ink);
   }
 
