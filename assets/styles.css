@@ -1330,11 +1330,11 @@ body.nav-open .nav {
   height: 20px;
   flex-shrink: 0;
 }
-/* Show sun icon in dark mode, moon icon in light mode */
-.nav__theme-toggle .icon-sun { display: none; }
-.nav__theme-toggle .icon-moon { display: block; }
-[data-theme="dark"] .nav__theme-toggle .icon-sun { display: block; }
-[data-theme="dark"] .nav__theme-toggle .icon-moon { display: none; }
+/* Show the active theme icon: sun in light mode, moon in dark mode. */
+.nav__theme-toggle .icon-sun { display: block; }
+.nav__theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .nav__theme-toggle .icon-sun { display: none; }
+[data-theme="dark"] .nav__theme-toggle .icon-moon { display: block; }
 
 /* On desktop/tablet: keep toggle visible even when other actions might be hidden */
 @media (max-width: 980px) {
