@@ -5,15 +5,23 @@
   const siteNav = document.querySelector("[data-site-nav]");
   if (siteNav) {
     const heroLogo = document.querySelector(".hero__logo");
+    let navTicking = false;
     const setNavState = () => {
+      navTicking = false;
       const scrolled = window.scrollY > 12;
       const showLogo = heroLogo ? heroLogo.getBoundingClientRect().bottom <= siteNav.offsetHeight + 10 : true;
       siteNav.classList.toggle("is-scrolled", scrolled);
       siteNav.classList.toggle("is-logo-visible", showLogo);
     };
+    const requestNavState = () => {
+      if (!navTicking) {
+        navTicking = true;
+        requestAnimationFrame(setNavState);
+      }
+    };
     setNavState();
-    window.addEventListener("scroll", setNavState, { passive: true });
-    window.addEventListener("resize", setNavState);
+    window.addEventListener("scroll", requestNavState, { passive: true });
+    window.addEventListener("resize", requestNavState);
 
     const navBar = siteNav.querySelector(".nav__bar");
     const primaryNav = siteNav.querySelector(".nav__links");
@@ -227,10 +235,32 @@
   const scrollSection = scrollTrack ? scrollTrack.closest(".service-scroll") : null;
   if (scrollTrack && scrollSection) {
     const nav = document.querySelector(".nav");
+    const sticky = scrollSection.querySelector(".service-scroll__sticky");
     let maxTravel = 0;
     let maxScroll = 1;
+    let sectionStart = 0;
+    let ticking = false;
+    let measureQueued = false;
+    let lastViewportWidth = Math.round(document.documentElement.clientWidth || window.innerWidth || 1);
     const navHeight = () => nav ? nav.offsetHeight : 68;
-    const viewportHeight = () => Math.round(window.visualViewport?.height || window.innerHeight || 1);
+    const viewportWidth = () => Math.round(document.documentElement.clientWidth || window.innerWidth || 1);
+    const viewportHeight = () => Math.round(window.innerHeight || document.documentElement.clientHeight || 1);
+    const setTrackPosition = (travel) => {
+      const rounded = Math.round(travel * 1000) / 1000;
+      scrollTrack.style.setProperty("transform", `translate3d(${-rounded}px,0,0)`, "important");
+    };
+    const updateTrack = () => {
+      ticking = false;
+      if (reduceMotion) return;
+      const progress = Math.min(1, Math.max(0, ((window.scrollY || window.pageYOffset || 0) - sectionStart) / maxScroll));
+      setTrackPosition(maxTravel * progress);
+    };
+    const requestTrackUpdate = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateTrack);
+      }
+    };
     const resetSection = () => {
       scrollSection.classList.remove("is-scroll-enhanced");
       scrollSection.style.height = "";
@@ -244,36 +274,41 @@
         return false;
       }
       scrollSection.classList.add("is-scroll-enhanced");
-      const stickyHeight = viewportHeight();
-      maxTravel = Math.max(0, scrollTrack.scrollWidth - window.innerWidth);
+      const stickyHeight = Math.max(1, Math.round(sticky?.offsetHeight || viewportHeight()));
+      maxTravel = Math.max(0, Math.ceil(scrollTrack.scrollWidth - viewportWidth()));
       scrollSection.style.setProperty("--nav-h", `${navHeight()}px`);
       scrollSection.style.setProperty("--service-scroll-height", `${Math.ceil(stickyHeight + maxTravel)}px`);
       scrollSection.style.height = `${Math.ceil(stickyHeight + maxTravel)}px`;
+      sectionStart = scrollSection.offsetTop;
       maxScroll = Math.max(1, scrollSection.offsetHeight - stickyHeight);
+      updateTrack();
       return true;
     };
-    const updateTrack = () => {
-      if (reduceMotion) return;
-      const rect = scrollSection.getBoundingClientRect();
-      const progress = Math.min(1, Math.max(0, -rect.top / maxScroll));
-      const travel = maxTravel * progress;
-      scrollTrack.style.setProperty("transform", `translate3d(${-travel}px,0,0)`, "important");
+    const requestMeasure = () => {
+      if (!measureQueued) {
+        measureQueued = true;
+        requestAnimationFrame(() => {
+          measureQueued = false;
+          measureSection();
+        });
+      }
+    };
+    const handleResize = () => {
+      const width = viewportWidth();
+      const widthChanged = Math.abs(width - lastViewportWidth) > 2;
+      const compactLayout = window.matchMedia("(max-width: 980px)").matches;
+      lastViewportWidth = width;
+      if (!compactLayout || widthChanged) {
+        requestMeasure();
+      } else {
+        requestTrackUpdate();
+      }
     };
     measureSection();
-    updateTrack();
-    window.addEventListener("scroll", updateTrack, { passive: true });
-    window.addEventListener("resize", () => {
-      measureSection();
-      updateTrack();
-    });
-    window.addEventListener("load", () => {
-      measureSection();
-      updateTrack();
-    });
-    window.visualViewport?.addEventListener("resize", () => {
-      measureSection();
-      updateTrack();
-    });
+    requestTrackUpdate();
+    window.addEventListener("scroll", requestTrackUpdate, { passive: true });
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("load", requestMeasure);
   }
 
   const parallaxItems = $$("[data-parallax]");
