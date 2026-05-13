@@ -1,6 +1,32 @@
 (function () {
   const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
+  // ── Theme toggle: dark/light mode ──
+  const THEME_KEY = "kh-theme";
+  const html = document.documentElement;
+
+  const applyTheme = (theme) => {
+    html.setAttribute("data-theme", theme === "dark" ? "dark" : "light");
+    // Sync the meta theme-color for iOS chrome.
+    // On mobile (≤640px) the html background is --mobile-shell (#161210 dark, #f7f1e8 light).
+    // Using the mobile-shell dark value ensures the Safari toolbar matches the page canvas
+    // and prevents a mismatched bar above the floating pill nav.
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute("content", theme === "dark" ? "#161210" : "#f7f1e8");
+    }
+  };
+
+  const getInitialTheme = () => {
+    const stored = localStorage.getItem(THEME_KEY);
+    if (stored === "dark" || stored === "light") return stored;
+    // Fall back to OS preference
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  };
+
+  // Apply on initial load (before paint)
+  applyTheme(getInitialTheme());
+
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const siteNav = document.querySelector("[data-site-nav]");
   if (siteNav) {
@@ -115,6 +141,16 @@
       });
     }
   }
+
+  // Wire up ALL theme toggle buttons (one per page, inside .nav__actions)
+  $$(".nav__theme-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const isDark = html.hasAttribute("data-theme") && html.getAttribute("data-theme") === "dark";
+      const next = isDark ? "light" : "dark";
+      localStorage.setItem(THEME_KEY, next);
+      applyTheme(next);
+    });
+  });
 
   const heroVideo = document.querySelector(".hero__video");
   if (heroVideo) {
