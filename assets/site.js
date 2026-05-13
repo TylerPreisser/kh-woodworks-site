@@ -161,6 +161,14 @@
   const heroVideo = document.querySelector(".hero__video");
   if (heroVideo) {
     const heroFrame = heroVideo.closest(".hero--video");
+    const heroViewport = window.matchMedia("(max-width: 640px)");
+    const setHeroPoster = () => {
+      const poster = heroViewport.matches ? heroVideo.dataset.posterMobile : heroVideo.dataset.posterDesktop;
+      if (poster && heroFrame) {
+        heroFrame.style.setProperty("--hero-poster", `url("${new URL(poster, window.location.href).href}")`);
+      }
+      heroVideo.removeAttribute("poster");
+    };
     heroVideo.muted = true;
     heroVideo.defaultMuted = true;
     heroVideo.autoplay = true;
@@ -174,13 +182,10 @@
     heroVideo.setAttribute("webkit-playsinline", "");
     heroVideo.setAttribute("disablepictureinpicture", "");
     heroVideo.setAttribute("x-webkit-airplay", "deny");
-    const heroViewport = window.matchMedia("(max-width: 640px)");
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
     const shouldLoadVideo = !reduceMotion;
     const updateHeroPoster = () => {
-      const poster = heroViewport.matches ? heroVideo.dataset.posterMobile : heroVideo.dataset.posterDesktop;
-      if (poster && heroFrame) heroFrame.style.setProperty("--hero-poster", `url("${new URL(poster, window.location.href).href}")`);
-      heroVideo.removeAttribute("poster");
+      setHeroPoster();
     };
     const sourceForViewport = () => {
       const sources = $$("source", heroVideo).filter((source) => {
@@ -201,8 +206,22 @@
       heroVideo.setAttribute("playsinline", "");
       heroVideo.setAttribute("webkit-playsinline", "");
       const playAttempt = heroVideo.play();
-      if (playAttempt && typeof playAttempt.catch === "function") playAttempt.catch(() => {});
+      if (playAttempt && typeof playAttempt.catch === "function") {
+        playAttempt.catch(() => {
+          heroVideo.classList.remove("is-playing");
+        });
+      }
     };
+    const markHeroPlaying = () => {
+      if (!heroVideo.paused && heroVideo.readyState >= 2) {
+        heroVideo.classList.add("is-playing");
+      }
+    };
+    heroVideo.addEventListener("playing", markHeroPlaying);
+    heroVideo.addEventListener("timeupdate", markHeroPlaying, { once: true });
+    heroVideo.addEventListener("pause", () => {
+      if (!heroVideo.ended) heroVideo.classList.remove("is-playing");
+    });
     const syncHeroVideoSource = () => {
       updateHeroPoster();
       if (!shouldLoadVideo) {
@@ -227,6 +246,11 @@
     heroViewport.addEventListener("change", syncHeroVideoSource);
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden && shouldLoadVideo) playHeroVideo();
+    });
+    ["touchstart", "pointerdown", "click"].forEach((eventName) => {
+      window.addEventListener(eventName, () => {
+        if (shouldLoadVideo && heroVideo.paused) playHeroVideo();
+      }, { passive: true, once: true });
     });
   }
 
@@ -328,7 +352,6 @@
       scrollSection.style.removeProperty("--service-scroll-height");
       scrollSection.style.removeProperty("--nav-h");
       scrollTrack.style.removeProperty("transform");
-      scrollSection.classList.remove("is-mobile-enhanced");
       lastTravel = null;
     };
     const measureSection = () => {
@@ -337,13 +360,11 @@
         return false;
       }
       scrollSection.classList.add("is-scroll-enhanced");
-      scrollSection.classList.toggle("is-mobile-enhanced", compactViewport.matches);
       const stickyHeight = Math.max(1, Math.round(sticky?.offsetHeight || viewportHeight()));
       maxTravel = Math.max(0, Math.ceil(scrollTrack.scrollWidth - viewportWidth()));
-      const scrollTravel = Math.ceil(maxTravel * (compactViewport.matches ? 0.82 : 1));
       scrollSection.style.setProperty("--nav-h", `${navHeight()}px`);
-      scrollSection.style.setProperty("--service-scroll-height", `${Math.ceil(stickyHeight + scrollTravel)}px`);
-      scrollSection.style.height = `${Math.ceil(stickyHeight + scrollTravel)}px`;
+      scrollSection.style.setProperty("--service-scroll-height", `${Math.ceil(stickyHeight + maxTravel)}px`);
+      scrollSection.style.height = `${Math.ceil(stickyHeight + maxTravel)}px`;
       sectionStart = scrollSection.offsetTop;
       maxScroll = Math.max(1, scrollSection.offsetHeight - stickyHeight);
       lastTravel = null;
