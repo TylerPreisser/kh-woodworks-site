@@ -160,16 +160,27 @@
 
   const heroVideo = document.querySelector(".hero__video");
   if (heroVideo) {
+    const heroFrame = heroVideo.closest(".hero--video");
     heroVideo.muted = true;
     heroVideo.defaultMuted = true;
     heroVideo.autoplay = true;
     heroVideo.playsInline = true;
+    heroVideo.controls = false;
+    heroVideo.removeAttribute("controls");
+    heroVideo.removeAttribute("poster");
+    heroVideo.setAttribute("muted", "");
+    heroVideo.setAttribute("autoplay", "");
+    heroVideo.setAttribute("playsinline", "");
+    heroVideo.setAttribute("webkit-playsinline", "");
+    heroVideo.setAttribute("disablepictureinpicture", "");
+    heroVideo.setAttribute("x-webkit-airplay", "deny");
     const heroViewport = window.matchMedia("(max-width: 640px)");
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
     const shouldLoadVideo = !reduceMotion;
     const updateHeroPoster = () => {
       const poster = heroViewport.matches ? heroVideo.dataset.posterMobile : heroVideo.dataset.posterDesktop;
-      if (poster && heroVideo.getAttribute("poster") !== poster) heroVideo.setAttribute("poster", poster);
+      if (poster && heroFrame) heroFrame.style.setProperty("--hero-poster", `url("${new URL(poster, window.location.href).href}")`);
+      heroVideo.removeAttribute("poster");
     };
     const sourceForViewport = () => {
       const sources = $$("source", heroVideo).filter((source) => {
@@ -182,6 +193,10 @@
     const playHeroVideo = () => {
       heroVideo.muted = true;
       heroVideo.defaultMuted = true;
+      heroVideo.controls = false;
+      heroVideo.removeAttribute("controls");
+      heroVideo.removeAttribute("poster");
+      heroVideo.setAttribute("muted", "");
       heroVideo.setAttribute("autoplay", "");
       heroVideo.setAttribute("playsinline", "");
       heroVideo.setAttribute("webkit-playsinline", "");
@@ -283,13 +298,16 @@
     let sectionStart = 0;
     let ticking = false;
     let measureQueued = false;
+    let lastTravel = null;
     let lastViewportWidth = Math.round(document.documentElement.clientWidth || window.innerWidth || 1);
     const compactViewport = window.matchMedia("(max-width: 980px)");
     const navHeight = () => nav ? nav.offsetHeight : 68;
     const viewportWidth = () => Math.round(document.documentElement.clientWidth || window.innerWidth || 1);
     const viewportHeight = () => Math.round(window.innerHeight || document.documentElement.clientHeight || 1);
     const setTrackPosition = (travel) => {
-      const rounded = Math.round(travel * 1000) / 1000;
+      const rounded = compactViewport.matches ? Math.round(travel) : Math.round(travel * 1000) / 1000;
+      if (rounded === lastTravel) return;
+      lastTravel = rounded;
       scrollTrack.style.setProperty("transform", `translate3d(${-rounded}px,0,0)`, "important");
     };
     const updateTrack = () => {
@@ -310,6 +328,8 @@
       scrollSection.style.removeProperty("--service-scroll-height");
       scrollSection.style.removeProperty("--nav-h");
       scrollTrack.style.removeProperty("transform");
+      scrollSection.classList.remove("is-mobile-enhanced");
+      lastTravel = null;
     };
     const measureSection = () => {
       if (reduceMotion) {
@@ -317,13 +337,16 @@
         return false;
       }
       scrollSection.classList.add("is-scroll-enhanced");
+      scrollSection.classList.toggle("is-mobile-enhanced", compactViewport.matches);
       const stickyHeight = Math.max(1, Math.round(sticky?.offsetHeight || viewportHeight()));
       maxTravel = Math.max(0, Math.ceil(scrollTrack.scrollWidth - viewportWidth()));
+      const scrollTravel = Math.ceil(maxTravel * (compactViewport.matches ? 0.82 : 1));
       scrollSection.style.setProperty("--nav-h", `${navHeight()}px`);
-      scrollSection.style.setProperty("--service-scroll-height", `${Math.ceil(stickyHeight + maxTravel)}px`);
-      scrollSection.style.height = `${Math.ceil(stickyHeight + maxTravel)}px`;
+      scrollSection.style.setProperty("--service-scroll-height", `${Math.ceil(stickyHeight + scrollTravel)}px`);
+      scrollSection.style.height = `${Math.ceil(stickyHeight + scrollTravel)}px`;
       sectionStart = scrollSection.offsetTop;
       maxScroll = Math.max(1, scrollSection.offsetHeight - stickyHeight);
+      lastTravel = null;
       updateTrack();
       return true;
     };
