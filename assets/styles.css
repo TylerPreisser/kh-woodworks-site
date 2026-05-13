@@ -5588,8 +5588,9 @@ body {
 @media (min-width: 981px) {
   .footer {
     background:
-      radial-gradient(circle at 14% 20%, rgba(215, 183, 139, .13), rgba(215, 183, 139, 0) 32%),
-      linear-gradient(180deg, #11100c 0%, #070604 100%) !important;
+      radial-gradient(circle at 14% 18%, rgba(155, 118, 88, .22), rgba(155, 118, 88, 0) 35%),
+      radial-gradient(circle at 80% 4%, rgba(131, 170, 162, .08), rgba(131, 170, 162, 0) 30%),
+      linear-gradient(180deg, #15100c 0%, #090706 100%) !important;
     color: #fffaf2;
     padding: clamp(70px, 7vw, 112px) 0 clamp(28px, 3vw, 42px);
   }
@@ -5606,28 +5607,30 @@ body {
   .footer__cta {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(140px, 210px) minmax(0, 1fr) 96px;
+    grid-template-columns: minmax(140px, 200px) minmax(0, 1fr) 96px;
     align-items: center;
-    gap: clamp(28px, 5vw, 76px);
+    gap: clamp(24px, 4vw, 62px);
     margin: 0;
-    padding: clamp(52px, 6vw, 82px) clamp(38px, 5vw, 76px);
-    border: 0;
+    padding: clamp(46px, 5vw, 70px) clamp(38px, 5vw, 76px);
+    border: 1px solid rgba(215, 183, 139, .28);
     border-radius: 0;
     background:
-      linear-gradient(90deg, rgba(255, 250, 242, .98), rgba(255, 250, 242, .92)),
+      linear-gradient(90deg, rgba(68, 42, 24, .94), rgba(24, 18, 13, .88)),
+      radial-gradient(circle at 72% 38%, rgba(215, 183, 139, .18), rgba(215, 183, 139, 0) 34%),
       url("work/webp/live-edge-slab-detail.webp") center / cover !important;
     box-shadow: none;
-    color: #15120f;
+    color: #fffaf2;
     overflow: hidden;
   }
 
   .footer__cta::before {
-    content: "Project ready? \2192";
+    content: "Custom cabinetry \2192";
     display: block;
-    max-width: 12ch;
-    color: #2a2520;
+    max-width: 15ch;
+    color: #d7b78b;
     font-size: 14px;
-    font-weight: 800;
+    font-weight: 900;
+    letter-spacing: .12em;
     line-height: 1.08;
     text-transform: uppercase;
   }
@@ -5637,13 +5640,14 @@ body {
   }
 
   .footer__cta h2 {
-    max-width: none;
-    color: #15120f !important;
-    font-family: var(--sans);
-    font-size: clamp(58px, 5.9vw, 96px);
+    max-width: 820px;
+    color: #fffaf2 !important;
+    font-family: var(--serif);
+    font-size: clamp(52px, 5vw, 82px);
     font-weight: 700;
-    line-height: .9;
+    line-height: .92;
     letter-spacing: 0;
+    text-wrap: balance;
   }
 
   .footer__title-desktop {
@@ -5676,8 +5680,8 @@ body {
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: #5f3d25 !important;
-    color: #fffaf2 !important;
+    background: #fffaf2 !important;
+    color: #4b2c18 !important;
     font-size: 0;
     letter-spacing: 0;
     line-height: 1;
@@ -5694,7 +5698,7 @@ body {
 
   .footer .footer__primary:hover,
   .footer .footer__primary:focus-visible {
-    background: #9b7658 !important;
+    background: #d7b78b !important;
     color: #15120f !important;
     transform: translateY(-1px);
   }
@@ -5720,7 +5724,7 @@ body {
     gap: clamp(34px, 5vw, 82px);
     padding: clamp(42px, 5vw, 68px) clamp(38px, 5vw, 76px) clamp(36px, 4vw, 54px);
     border: 0;
-    background: #070604;
+    background: transparent !important;
   }
 
   .footer__grid--compact .footer__column {
@@ -5774,11 +5778,254 @@ body {
     margin: 0;
     padding: 26px clamp(38px, 5vw, 76px) 0;
     border-top: 1px solid rgba(255, 250, 242, .14);
-    background: #070604;
+    background: transparent !important;
     color: rgba(255, 250, 242, .44) !important;
   }
 
   .footer__bottom span {
     color: inherit !important;
+  }
+}
+
+/* Desktop light mode: make the full page respond, not just the services rail. */
+@media (min-width: 981px) {
+  [data-theme="light"] body {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  [data-theme="light"] .nav {
+    background:
+      linear-gradient(180deg, rgba(247, 241, 232, .96), rgba(247, 241, 232, .86)),
+      rgba(247, 241, 232, .92) !important;
+    border-bottom-color: rgba(25, 22, 19, .12);
+    box-shadow: 0 18px 48px rgba(25, 22, 19, .08);
+  }
+
+  [data-theme="light"] .nav.is-scrolled,
+  [data-theme="light"] body.nav-open .nav {
+    background:
+      linear-gradient(180deg, rgba(255, 250, 242, .98), rgba(247, 241, 232, .94)),
+      var(--paper) !important;
+    border-bottom-color: rgba(95, 61, 37, .22);
+  }
+
+  [data-theme="light"] .nav .brand__logo {
+    filter:
+      invert(1)
+      sepia(.28)
+      saturate(1.15)
+      hue-rotate(344deg)
+      brightness(.58)
+      contrast(1.22);
+  }
+
+  [data-theme="light"] .nav__links a {
+    color: rgba(25, 22, 19, .72);
+  }
+
+  [data-theme="light"] .nav__links a:hover,
+  [data-theme="light"] .nav__links a.is-active {
+    color: var(--ink);
+  }
+
+  [data-theme="light"] .nav__links a::after {
+    background: var(--clay);
+  }
+
+  [data-theme="light"] .nav__phone {
+    color: var(--soft-ink);
+  }
+
+  [data-theme="light"] .nav__quote {
+    border-color: var(--line-strong);
+    color: var(--ink);
+  }
+
+  [data-theme="light"] .nav__quote:hover,
+  [data-theme="light"] .nav__quote:focus-visible {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+
+  [data-theme="light"] .nav__theme-toggle {
+    background: rgba(25, 22, 19, .08);
+    color: var(--ink);
+  }
+
+  [data-theme="light"] .nav__theme-toggle:hover,
+  [data-theme="light"] .nav__theme-toggle:focus-visible {
+    background: rgba(25, 22, 19, .13);
+    color: var(--ink);
+  }
+
+  [data-theme="light"] .atelier {
+    background:
+      radial-gradient(circle at 18% 8%, rgba(155, 118, 88, .14), rgba(155, 118, 88, 0) 34%),
+      linear-gradient(180deg, var(--paper) 0%, var(--cream) 100%) !important;
+    color: var(--ink);
+  }
+
+  [data-theme="light"] .page-hero,
+  [data-theme="light"] .section,
+  [data-theme="light"] .section--cream,
+  [data-theme="light"] .gallery-grid figcaption,
+  [data-theme="light"] .service-card,
+  [data-theme="light"] .service-tile,
+  [data-theme="light"] .proof-grid > div,
+  [data-theme="light"] .contact-form,
+  [data-theme="light"] .contact-box,
+  [data-theme="light"] .faq details {
+    background: var(--cream) !important;
+    border-color: var(--line);
+    color: var(--ink);
+  }
+
+  [data-theme="light"] .page-hero p,
+  [data-theme="light"] .section__head p,
+  [data-theme="light"] .gallery-grid span,
+  [data-theme="light"] .service-card p,
+  [data-theme="light"] .service-card ul,
+  [data-theme="light"] .service-tile p,
+  [data-theme="light"] .proof-grid p,
+  [data-theme="light"] .contact-box p,
+  [data-theme="light"] .faq p {
+    color: var(--soft-ink);
+  }
+
+  [data-theme="light"] .atelier-shot {
+    background: var(--linen);
+    border-color: var(--line);
+    box-shadow: 0 28px 80px rgba(25, 22, 19, .14);
+  }
+
+  [data-theme="light"] .atelier-note {
+    background:
+      linear-gradient(145deg, rgba(255, 250, 242, .96), rgba(233, 223, 208, .92)),
+      var(--cream) !important;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    box-shadow: 0 28px 70px rgba(25, 22, 19, .13);
+  }
+
+  [data-theme="light"] .atelier-note span {
+    color: var(--clay);
+  }
+
+  [data-theme="light"] .atelier-note strong {
+    color: var(--ink);
+  }
+
+  [data-theme="light"] .story-section {
+    background:
+      linear-gradient(180deg, var(--cream) 0%, var(--paper) 100%) !important;
+    border-top: 1px solid var(--line);
+    color: var(--ink) !important;
+  }
+
+  [data-theme="light"] .story-panel__copy {
+    background: var(--cream);
+  }
+
+  [data-theme="light"] .story-panel__copy .eyebrow {
+    color: var(--clay) !important;
+  }
+
+  [data-theme="light"] .story-panel__copy h2 {
+    color: var(--ink) !important;
+  }
+
+  [data-theme="light"] .story-panel__copy p {
+    color: var(--soft-ink) !important;
+  }
+
+  [data-theme="light"] .cta,
+  [data-theme="light"] .cta--premium {
+    background:
+      linear-gradient(180deg, var(--paper), var(--cream)) !important;
+    color: var(--ink);
+  }
+
+  [data-theme="light"] .cta h2,
+  [data-theme="light"] .cta--premium h2 {
+    color: var(--ink);
+  }
+
+  [data-theme="light"] .cta p,
+  [data-theme="light"] .cta--premium p {
+    color: var(--soft-ink);
+  }
+
+  [data-theme="light"] .cta .btn--light,
+  [data-theme="light"] .cta--premium .btn--light {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+
+  [data-theme="light"] .footer {
+    background:
+      radial-gradient(circle at 14% 18%, rgba(155, 118, 88, .16), rgba(155, 118, 88, 0) 34%),
+      linear-gradient(180deg, var(--paper) 0%, var(--linen) 100%) !important;
+    color: var(--ink);
+  }
+
+  [data-theme="light"] .footer__cta {
+    background:
+      linear-gradient(90deg, rgba(255, 250, 242, .92), rgba(233, 223, 208, .84)),
+      radial-gradient(circle at 72% 38%, rgba(155, 118, 88, .16), rgba(155, 118, 88, 0) 34%),
+      url("work/webp/live-edge-slab-detail.webp") center / cover !important;
+    border-color: rgba(95, 61, 37, .2);
+    color: var(--ink);
+  }
+
+  [data-theme="light"] .footer__cta::before {
+    color: var(--clay);
+  }
+
+  [data-theme="light"] .footer__cta h2 {
+    color: var(--ink) !important;
+  }
+
+  [data-theme="light"] .footer .footer__primary {
+    background: var(--walnut) !important;
+    color: #fffaf2 !important;
+  }
+
+  [data-theme="light"] .footer .footer__primary:hover,
+  [data-theme="light"] .footer .footer__primary:focus-visible {
+    background: var(--clay) !important;
+    color: #15120f !important;
+  }
+
+  [data-theme="light"] .footer h4 {
+    color: var(--walnut);
+  }
+
+  [data-theme="light"] .footer__column--brand .footer__brand img {
+    filter:
+      invert(1)
+      sepia(.28)
+      saturate(1.15)
+      hue-rotate(344deg)
+      brightness(.58)
+      contrast(1.22);
+  }
+
+  [data-theme="light"] .footer__column a,
+  [data-theme="light"] .footer__column span {
+    color: var(--soft-ink) !important;
+  }
+
+  [data-theme="light"] .footer__column--brand span:first-of-type,
+  [data-theme="light"] .footer__column a:hover,
+  [data-theme="light"] .footer__column a:focus-visible {
+    color: var(--ink) !important;
+  }
+
+  [data-theme="light"] .footer__bottom {
+    border-top-color: var(--line);
+    color: var(--muted) !important;
   }
 }
