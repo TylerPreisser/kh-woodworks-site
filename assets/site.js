@@ -284,6 +284,7 @@
     let ticking = false;
     let measureQueued = false;
     let lastViewportWidth = Math.round(document.documentElement.clientWidth || window.innerWidth || 1);
+    const enhancedViewport = window.matchMedia("(min-width: 981px)");
     const navHeight = () => nav ? nav.offsetHeight : 68;
     const viewportWidth = () => Math.round(document.documentElement.clientWidth || window.innerWidth || 1);
     const viewportHeight = () => Math.round(window.innerHeight || document.documentElement.clientHeight || 1);
@@ -293,7 +294,7 @@
     };
     const updateTrack = () => {
       ticking = false;
-      if (reduceMotion) return;
+      if (reduceMotion || !enhancedViewport.matches) return;
       const progress = Math.min(1, Math.max(0, ((window.scrollY || window.pageYOffset || 0) - sectionStart) / maxScroll));
       setTrackPosition(maxTravel * progress);
     };
@@ -311,7 +312,7 @@
       scrollTrack.style.removeProperty("transform");
     };
     const measureSection = () => {
-      if (reduceMotion) {
+      if (reduceMotion || !enhancedViewport.matches) {
         resetSection();
         return false;
       }
@@ -338,9 +339,8 @@
     const handleResize = () => {
       const width = viewportWidth();
       const widthChanged = Math.abs(width - lastViewportWidth) > 2;
-      const compactLayout = window.matchMedia("(max-width: 980px)").matches;
       lastViewportWidth = width;
-      if (!compactLayout || widthChanged) {
+      if (enhancedViewport.matches || widthChanged) {
         requestMeasure();
       } else {
         requestTrackUpdate();
@@ -351,6 +351,11 @@
     window.addEventListener("scroll", requestTrackUpdate, { passive: true });
     window.addEventListener("resize", handleResize);
     window.addEventListener("load", requestMeasure);
+    if (enhancedViewport.addEventListener) {
+      enhancedViewport.addEventListener("change", requestMeasure);
+    } else if (enhancedViewport.addListener) {
+      enhancedViewport.addListener(requestMeasure);
+    }
   }
 
   const parallaxItems = $$("[data-parallax]");
