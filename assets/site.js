@@ -62,21 +62,17 @@
       menuButton.innerHTML = "<span></span><span></span><span></span>";
       navBar.appendChild(menuButton);
 
+      // Dropdown panel (replaces full-screen overlay)
+      // Positioned below the nav pill via CSS fixed positioning.
       const overlay = document.createElement("div");
       overlay.className = "menu-overlay";
       overlay.setAttribute("aria-hidden", "true");
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-label", "Navigation menu");
 
-      const top = document.createElement("div");
-      top.className = "wrap menu-overlay__top";
-      if (brand) top.appendChild(brand.cloneNode(true));
-      const closeButton = document.createElement("button");
-      closeButton.className = "menu-overlay__close";
-      closeButton.type = "button";
-      closeButton.textContent = "Close";
-      top.appendChild(closeButton);
-
+      // Body: nav links + contact — no duplicate header
       const body = document.createElement("div");
-      body.className = "wrap menu-overlay__body";
+      body.className = "menu-overlay__body";
       const overlayNav = document.createElement("nav");
       overlayNav.setAttribute("aria-label", "Mobile navigation");
       $$("a", primaryNav).forEach((link) => {
@@ -106,12 +102,10 @@
       facebookLink.target = "_blank";
       facebookLink.rel = "noopener";
       facebookLink.textContent = "Facebook";
-      const note = document.createElement("p");
-      note.textContent = "Custom cabinetry, furniture, mantels, millwork, and built-ins for Hays and surrounding Kansas communities.";
-      contact.append(label, callLink, quoteLink, instagramLink, facebookLink, note);
+      contact.append(label, callLink, quoteLink, instagramLink, facebookLink);
 
       body.append(overlayNav, contact);
-      overlay.append(top, body);
+      overlay.append(body);
       siteNav.insertAdjacentElement("afterend", overlay);
 
       const closeMenu = () => {
@@ -132,9 +126,21 @@
         if (overlay.classList.contains("is-open")) closeMenu();
         else openMenu();
       });
-      closeButton.addEventListener("click", closeMenu);
+      // Close when tapping a nav link
       overlay.addEventListener("click", (event) => {
         if (event.target.closest("a")) closeMenu();
+      });
+      // Close when tapping the scrim (body::after) — scrim is below z-index 45 but
+      // body.nav-open scroll-lock means the only scroll/tap target visible is the scrim.
+      // We catch clicks on the document that DON'T land inside the overlay or nav.
+      document.addEventListener("click", (event) => {
+        if (
+          overlay.classList.contains("is-open") &&
+          !overlay.contains(event.target) &&
+          !siteNav.contains(event.target)
+        ) {
+          closeMenu();
+        }
       });
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") closeMenu();
