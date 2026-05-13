@@ -4636,25 +4636,15 @@ body {
   }
 
   body {
+    position: relative;
     min-height: 100svh;
     padding-bottom: 0;
     color: var(--mobile-copy);
-    background:
-      radial-gradient(circle at 86% 8%, rgba(215, 183, 139, .10), rgba(215, 183, 139, 0) 24rem),
-      radial-gradient(circle at 8% 46%, rgba(131, 170, 162, .09), rgba(131, 170, 162, 0) 22rem),
-      linear-gradient(180deg,
-        var(--mobile-shell) 0%,
-        var(--mobile-shell-warm) 22%,
-        var(--mobile-shell-green) 48%,
-        var(--mobile-shell-warm) 76%,
-        var(--mobile-shell) 100%);
-    background-color: var(--mobile-shell);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background: var(--mobile-shell) !important;
   }
 
   main {
-    background: transparent !important;
+    background: var(--mobile-shell) !important;
   }
 
   .hero--video {
@@ -4664,10 +4654,28 @@ body {
     color: var(--mobile-copy);
   }
 
+  .hero--video::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    z-index: 1;
+    height: 30svh;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(5, 5, 4, 0), var(--mobile-shell) 90%);
+  }
+
+  .hero__video {
+    animation: none;
+    transform: scale(1.015) !important;
+    filter: contrast(1.06) saturate(1.04);
+  }
+
   .hero__shade {
     background:
-      radial-gradient(circle at center, rgba(5, 5, 4, .04), rgba(5, 5, 4, .62) 58%, rgba(5, 5, 4, .9)),
-      linear-gradient(0deg, rgba(5, 5, 4, .7), rgba(5, 5, 4, .08) 48%, rgba(5, 5, 4, .52));
+      radial-gradient(circle at center, rgba(5, 5, 4, .02), rgba(5, 5, 4, .52) 60%, rgba(5, 5, 4, .86)),
+      linear-gradient(0deg, rgba(5, 5, 4, .64), rgba(5, 5, 4, .05) 48%, rgba(5, 5, 4, .46));
   }
 
   .nav,
@@ -4798,6 +4806,7 @@ body {
   }
 
   .footer {
+    background: var(--mobile-shell) !important;
     padding-bottom: calc(30px + env(safe-area-inset-bottom));
   }
 }
