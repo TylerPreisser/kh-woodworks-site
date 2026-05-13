@@ -173,7 +173,7 @@
     });
   }
 
-  const motionTargets = $$(".service-panel, .atelier-shot, .story-panel");
+  const motionTargets = $$(".atelier-shot, .story-panel");
   motionTargets.forEach((element, index) => {
     if (!element.classList.contains("reveal")) element.classList.add("motion-reveal");
     element.style.setProperty("--reveal-delay", `${Math.min(index, 8) * 55}ms`);

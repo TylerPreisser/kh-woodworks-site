@@ -4681,10 +4681,18 @@ body {
   .nav,
   .nav.is-scrolled,
   body.nav-open .nav {
-    background:
-      linear-gradient(180deg, rgba(5, 5, 4, .96), rgba(5, 5, 4, .88)),
-      var(--mobile-shell);
-    border-color: rgba(255, 250, 242, .15);
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding-top: env(safe-area-inset-top);
+    border-top: 0 !important;
+    border-right: 0 !important;
+    border-left: 0 !important;
+    border-radius: 0 0 22px 22px;
+    background: var(--mobile-shell) !important;
+    border-color: rgba(255, 250, 242, .12) !important;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, .32);
   }
 
   .menu-overlay {
@@ -4708,6 +4716,13 @@ body {
     border-bottom: 0 !important;
     background: transparent !important;
     color: var(--mobile-copy);
+  }
+
+  .service-scroll,
+  .atelier,
+  .story-section,
+  .footer {
+    background-color: var(--mobile-shell) !important;
   }
 
   .atelier::before,
@@ -4758,6 +4773,7 @@ body {
   }
 
   .service-card,
+  .service-panel,
   .service-card--text,
   .service-tile,
   .proof-grid > div,
@@ -4772,6 +4788,14 @@ body {
       rgba(255, 250, 242, .045) !important;
     border: 1px solid var(--mobile-line) !important;
     color: var(--mobile-copy);
+  }
+
+  .service-panel,
+  .service-panel.motion-reveal,
+  .service-panel.reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 
   .gallery-grid figcaption,
@@ -4807,6 +4831,62 @@ body {
 
   .footer {
     background: var(--mobile-shell) !important;
+    padding-top: 48px;
     padding-bottom: calc(30px + env(safe-area-inset-bottom));
+  }
+
+  .footer__cta {
+    max-width: 34rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 18px;
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent !important;
+    box-shadow: none;
+    text-align: center;
+  }
+
+  .footer__cta-copy {
+    display: grid;
+    justify-items: center;
+  }
+
+  .footer__cta h2 {
+    max-width: 10.5ch;
+    font-size: clamp(36px, 10.8vw, 50px);
+    line-height: .96;
+    text-align: center;
+  }
+
+  .footer__cta p,
+  .footer__action-link,
+  .footer__social-link,
+  .footer__grid.footer__grid--compact,
+  .footer__bottom span:not(:first-child) {
+    display: none !important;
+  }
+
+  .footer__cta-actions {
+    width: min(100%, 260px);
+    display: grid;
+    justify-items: stretch;
+  }
+
+  .footer .footer__primary {
+    width: 100%;
+    min-height: 54px;
+    border-radius: 18px;
+  }
+
+  .footer__bottom {
+    justify-content: center;
+    margin-top: 34px;
+    padding-top: 0;
+    border-top: 0;
+    text-align: center;
   }
 }
