@@ -4618,3 +4618,186 @@ body {
     color: rgba(255, 248, 237, .72);
   }
 }
+
+/* Seamless mobile shell: safe-area bars, page sections, and subpages share one canvas. */
+@media (max-width: 640px) {
+  :root {
+    --mobile-shell: #050504;
+    --mobile-shell-warm: #0b0907;
+    --mobile-shell-green: #0d1512;
+    --mobile-copy: #fff8ed;
+    --mobile-copy-muted: rgba(255, 248, 237, .76);
+    --mobile-line: rgba(255, 250, 242, .13);
+  }
+
+  html {
+    min-height: 100%;
+    background: var(--mobile-shell) !important;
+  }
+
+  body {
+    min-height: 100svh;
+    padding-bottom: 0;
+    color: var(--mobile-copy);
+    background:
+      radial-gradient(circle at 86% 8%, rgba(215, 183, 139, .10), rgba(215, 183, 139, 0) 24rem),
+      radial-gradient(circle at 8% 46%, rgba(131, 170, 162, .09), rgba(131, 170, 162, 0) 22rem),
+      linear-gradient(180deg,
+        var(--mobile-shell) 0%,
+        var(--mobile-shell-warm) 22%,
+        var(--mobile-shell-green) 48%,
+        var(--mobile-shell-warm) 76%,
+        var(--mobile-shell) 100%);
+    background-color: var(--mobile-shell);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  main {
+    background: transparent !important;
+  }
+
+  .hero--video {
+    margin-top: calc(-1 * env(safe-area-inset-top));
+    padding-top: env(safe-area-inset-top);
+    background: var(--mobile-shell) !important;
+    color: var(--mobile-copy);
+  }
+
+  .hero__shade {
+    background:
+      radial-gradient(circle at center, rgba(5, 5, 4, .04), rgba(5, 5, 4, .62) 58%, rgba(5, 5, 4, .9)),
+      linear-gradient(0deg, rgba(5, 5, 4, .7), rgba(5, 5, 4, .08) 48%, rgba(5, 5, 4, .52));
+  }
+
+  .nav,
+  .nav.is-scrolled,
+  body.nav-open .nav {
+    background:
+      linear-gradient(180deg, rgba(5, 5, 4, .96), rgba(5, 5, 4, .88)),
+      var(--mobile-shell);
+    border-color: rgba(255, 250, 242, .15);
+  }
+
+  .menu-overlay {
+    background:
+      radial-gradient(circle at 14% 8%, rgba(215, 183, 139, .14), rgba(215, 183, 139, 0) 34%),
+      linear-gradient(180deg, rgba(5, 5, 4, .99), rgba(7, 11, 9, .99));
+  }
+
+  .page-hero,
+  .section,
+  .section--cream,
+  .section--dark,
+  .service-scroll,
+  .atelier,
+  .story-section,
+  .cta,
+  .cta--premium,
+  .footer {
+    margin-top: -1px;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+    background: transparent !important;
+    color: var(--mobile-copy);
+  }
+
+  .atelier::before,
+  .footer::before {
+    display: none;
+  }
+
+  .page-hero {
+    padding-top: calc(var(--nav-height) + 42px + env(safe-area-inset-top));
+    color: var(--mobile-copy);
+  }
+
+  .page-hero h1,
+  .section__head h2,
+  .split h2,
+  .proof-grid h3,
+  .contact-box h2,
+  .contact-box h3,
+  .faq summary,
+  .service-card h3,
+  .service-tile h3,
+  .gallery-grid h3,
+  .story-panel__copy h2,
+  .cta h2 {
+    color: var(--mobile-copy);
+  }
+
+  .page-hero p,
+  .section__head p,
+  .split p,
+  .proof-grid p,
+  .service-card p,
+  .service-card ul,
+  .service-tile p,
+  .gallery-grid span,
+  .contact-box p,
+  .contact-box a,
+  .faq p,
+  .story-panel__copy p,
+  .cta p {
+    color: var(--mobile-copy-muted);
+  }
+
+  .eyebrow,
+  .story-panel__copy .eyebrow,
+  .field label {
+    color: #d7b78b;
+  }
+
+  .service-card,
+  .service-card--text,
+  .service-tile,
+  .proof-grid > div,
+  .contact-form,
+  .contact-box,
+  .faq details,
+  .gallery-grid figure.text-card,
+  .atelier-note,
+  .menu-overlay__contact {
+    background:
+      linear-gradient(145deg, rgba(255, 250, 242, .075), rgba(131, 170, 162, .045)),
+      rgba(255, 250, 242, .045) !important;
+    border: 1px solid var(--mobile-line) !important;
+    color: var(--mobile-copy);
+  }
+
+  .gallery-grid figcaption,
+  .footer__bottom,
+  .footer__grid,
+  .footer__grid.footer__grid--compact {
+    border-color: var(--mobile-line);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    background: rgba(5, 5, 4, .54);
+    border-color: var(--mobile-line);
+    color: var(--mobile-copy);
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: rgba(255, 248, 237, .44);
+  }
+
+  .gallery-filter button {
+    border-color: rgba(255, 250, 242, .18);
+    color: var(--mobile-copy-muted);
+  }
+
+  .gallery-filter button.is-on,
+  .gallery-filter button:hover {
+    background: var(--mobile-copy);
+    color: var(--mobile-shell);
+  }
+
+  .footer {
+    padding-bottom: calc(30px + env(safe-area-inset-bottom));
+  }
+}
