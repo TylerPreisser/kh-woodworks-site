@@ -14,6 +14,98 @@
     setNavState();
     window.addEventListener("scroll", setNavState, { passive: true });
     window.addEventListener("resize", setNavState);
+
+    const navBar = siteNav.querySelector(".nav__bar");
+    const primaryNav = siteNav.querySelector(".nav__links");
+    const brand = siteNav.querySelector(".brand");
+    const quote = siteNav.querySelector(".nav__quote");
+    if (navBar && primaryNav && !siteNav.querySelector(".nav__menu")) {
+      const menuButton = document.createElement("button");
+      menuButton.className = "nav__menu";
+      menuButton.type = "button";
+      menuButton.setAttribute("aria-label", "Open menu");
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.innerHTML = "<span></span><span></span><span></span>";
+      navBar.appendChild(menuButton);
+
+      const overlay = document.createElement("div");
+      overlay.className = "menu-overlay";
+      overlay.setAttribute("aria-hidden", "true");
+
+      const top = document.createElement("div");
+      top.className = "wrap menu-overlay__top";
+      if (brand) top.appendChild(brand.cloneNode(true));
+      const closeButton = document.createElement("button");
+      closeButton.className = "menu-overlay__close";
+      closeButton.type = "button";
+      closeButton.textContent = "Close";
+      top.appendChild(closeButton);
+
+      const body = document.createElement("div");
+      body.className = "wrap menu-overlay__body";
+      const overlayNav = document.createElement("nav");
+      overlayNav.setAttribute("aria-label", "Mobile navigation");
+      $$("a", primaryNav).forEach((link) => {
+        const clone = link.cloneNode(true);
+        clone.removeAttribute("class");
+        clone.removeAttribute("aria-current");
+        overlayNav.appendChild(clone);
+      });
+
+      const contact = document.createElement("div");
+      contact.className = "menu-overlay__contact";
+      const label = document.createElement("span");
+      label.textContent = "Contact";
+      const callLink = document.createElement("a");
+      callLink.href = "tel:7858290504";
+      callLink.textContent = "785-829-0504";
+      const quoteLink = document.createElement("a");
+      quoteLink.href = quote ? quote.getAttribute("href") || "contact.html" : "contact.html";
+      quoteLink.textContent = "Request a Quote";
+      const instagramLink = document.createElement("a");
+      instagramLink.href = "https://www.instagram.com/kh_woodworks_co/";
+      instagramLink.target = "_blank";
+      instagramLink.rel = "noopener";
+      instagramLink.textContent = "Instagram";
+      const facebookLink = document.createElement("a");
+      facebookLink.href = "https://www.facebook.com/KHWoodworksCo/";
+      facebookLink.target = "_blank";
+      facebookLink.rel = "noopener";
+      facebookLink.textContent = "Facebook";
+      const note = document.createElement("p");
+      note.textContent = "Custom cabinetry, furniture, mantels, millwork, and built-ins for Hays and surrounding Kansas communities.";
+      contact.append(label, callLink, quoteLink, instagramLink, facebookLink, note);
+
+      body.append(overlayNav, contact);
+      overlay.append(top, body);
+      siteNav.insertAdjacentElement("afterend", overlay);
+
+      const closeMenu = () => {
+        document.body.classList.remove("nav-open");
+        overlay.classList.remove("is-open");
+        overlay.setAttribute("aria-hidden", "true");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open menu");
+      };
+      const openMenu = () => {
+        document.body.classList.add("nav-open");
+        overlay.classList.add("is-open");
+        overlay.setAttribute("aria-hidden", "false");
+        menuButton.setAttribute("aria-expanded", "true");
+        menuButton.setAttribute("aria-label", "Close menu");
+      };
+      menuButton.addEventListener("click", () => {
+        if (overlay.classList.contains("is-open")) closeMenu();
+        else openMenu();
+      });
+      closeButton.addEventListener("click", closeMenu);
+      overlay.addEventListener("click", (event) => {
+        if (event.target.closest("a")) closeMenu();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeMenu();
+      });
+    }
   }
 
   const heroVideo = document.querySelector(".hero__video");
@@ -137,7 +229,6 @@
     const nav = document.querySelector(".nav");
     let maxTravel = 0;
     let maxScroll = 1;
-    let panelTargets = [];
     const navHeight = () => nav ? nav.offsetHeight : 68;
     const viewportHeight = () => Math.round(window.visualViewport?.height || window.innerHeight || 1);
     const resetSection = () => {
@@ -155,10 +246,6 @@
       scrollSection.classList.add("is-scroll-enhanced");
       const stickyHeight = viewportHeight();
       maxTravel = Math.max(0, scrollTrack.scrollWidth - window.innerWidth);
-      panelTargets = $$(".service-panel", scrollTrack).map((panel) => {
-        const target = panel.offsetLeft - ((window.innerWidth - panel.offsetWidth) / 2);
-        return Math.min(maxTravel, Math.max(0, target));
-      });
       scrollSection.style.setProperty("--nav-h", `${navHeight()}px`);
       scrollSection.style.setProperty("--service-scroll-height", `${Math.ceil(stickyHeight + maxTravel)}px`);
       scrollSection.style.height = `${Math.ceil(stickyHeight + maxTravel)}px`;
@@ -169,9 +256,7 @@
       if (reduceMotion) return;
       const rect = scrollSection.getBoundingClientRect();
       const progress = Math.min(1, Math.max(0, -rect.top / maxScroll));
-      const snapCards = window.matchMedia("(max-width: 640px)").matches && panelTargets.length > 1;
-      const snappedIndex = snapCards ? Math.round(progress * (panelTargets.length - 1)) : -1;
-      const travel = snapCards ? panelTargets[snappedIndex] : maxTravel * progress;
+      const travel = maxTravel * progress;
       scrollTrack.style.setProperty("transform", `translate3d(${-travel}px,0,0)`, "important");
     };
     measureSection();
