@@ -20,12 +20,29 @@
   if (heroVideo) {
     heroVideo.muted = true;
     heroVideo.playsInline = true;
+    const heroViewport = window.matchMedia("(max-width: 640px)");
+    const mobileSource = heroVideo.querySelector("source[media]");
+    const desktopSource = heroVideo.querySelector("source:not([media])");
+    const sourceForViewport = () => heroViewport.matches ? mobileSource?.getAttribute("src") : desktopSource?.getAttribute("src");
     const playHeroVideo = () => {
       const playAttempt = heroVideo.play();
       if (playAttempt && typeof playAttempt.catch === "function") playAttempt.catch(() => {});
     };
+    const syncHeroVideoSource = () => {
+      const desiredSource = sourceForViewport();
+      if (!desiredSource) return;
+      const desiredUrl = new URL(desiredSource, window.location.href).href;
+      const currentUrl = heroVideo.currentSrc || heroVideo.src;
+      if (currentUrl !== desiredUrl) {
+        heroVideo.src = desiredSource;
+        heroVideo.load();
+      }
+      playHeroVideo();
+    };
+    syncHeroVideoSource();
     playHeroVideo();
     window.addEventListener("load", playHeroVideo, { once: true });
+    heroViewport.addEventListener("change", syncHeroVideoSource);
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden) playHeroVideo();
     });
@@ -89,21 +106,28 @@
     const nav = document.querySelector(".nav");
     let maxTravel = 0;
     let maxScroll = 1;
+    let panelTargets = [];
     const navHeight = () => nav ? nav.offsetHeight : 68;
     const viewportHeight = () => Math.round(window.visualViewport?.height || window.innerHeight || 1);
     const resetSection = () => {
+      scrollSection.classList.remove("is-scroll-enhanced");
       scrollSection.style.height = "";
       scrollSection.style.removeProperty("--service-scroll-height");
       scrollSection.style.removeProperty("--nav-h");
-      scrollTrack.style.transform = "";
+      scrollTrack.style.removeProperty("transform");
     };
     const measureSection = () => {
       if (reduceMotion) {
         resetSection();
         return false;
       }
+      scrollSection.classList.add("is-scroll-enhanced");
       const stickyHeight = viewportHeight();
       maxTravel = Math.max(0, scrollTrack.scrollWidth - window.innerWidth);
+      panelTargets = $$(".service-panel", scrollTrack).map((panel) => {
+        const target = panel.offsetLeft - ((window.innerWidth - panel.offsetWidth) / 2);
+        return Math.min(maxTravel, Math.max(0, target));
+      });
       scrollSection.style.setProperty("--nav-h", `${navHeight()}px`);
       scrollSection.style.setProperty("--service-scroll-height", `${Math.ceil(stickyHeight + maxTravel)}px`);
       scrollSection.style.height = `${Math.ceil(stickyHeight + maxTravel)}px`;
@@ -114,7 +138,10 @@
       if (reduceMotion) return;
       const rect = scrollSection.getBoundingClientRect();
       const progress = Math.min(1, Math.max(0, -rect.top / maxScroll));
-      scrollTrack.style.transform = `translate3d(${-maxTravel * progress}px,0,0)`;
+      const snapCards = window.matchMedia("(max-width: 640px)").matches && panelTargets.length > 1;
+      const snappedIndex = snapCards ? Math.round(progress * (panelTargets.length - 1)) : -1;
+      const travel = snapCards ? panelTargets[snappedIndex] : maxTravel * progress;
+      scrollTrack.style.setProperty("transform", `translate3d(${-travel}px,0,0)`, "important");
     };
     measureSection();
     updateTrack();

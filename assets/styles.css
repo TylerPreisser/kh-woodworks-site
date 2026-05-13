@@ -3103,3 +3103,166 @@ html {
     font-size: clamp(20px, 6.2vw, 26px);
   }
 }
+
+/* Production polish pass: robust mobile fallback, centered service cards, brighter work wall. */
+.atelier {
+  padding-top: clamp(84px, 9vw, 136px);
+  padding-bottom: clamp(82px, 10vw, 132px);
+}
+
+.atelier-shot img {
+  filter: saturate(1.04) contrast(1.02) brightness(1.05);
+}
+
+.atelier-shot::after {
+  background: linear-gradient(0deg, rgba(15, 12, 9, .08), rgba(15, 12, 9, 0) 44%);
+}
+
+.atelier-note {
+  box-shadow: 0 34px 90px rgba(0, 0, 0, .22);
+}
+
+.story-section {
+  scroll-margin-top: var(--nav-height);
+}
+
+.story-panel__copy .eyebrow {
+  letter-spacing: .22em;
+}
+
+@media (max-width: 980px) {
+  .service-scroll {
+    height: auto !important;
+    min-height: 0;
+  }
+
+  .service-scroll__sticky {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .service-track {
+    --service-panel-size: min(520px, 72vw);
+    width: auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    transform: none !important;
+    touch-action: pan-x pan-y;
+    padding-left: max(var(--gutter), calc((100vw - var(--service-panel-size)) / 2));
+    padding-right: max(var(--gutter), calc((100vw - var(--service-panel-size)) / 2));
+  }
+
+  .service-panel {
+    scroll-snap-align: center;
+  }
+
+  .service-scroll.is-scroll-enhanced {
+    height: var(--service-scroll-height, 100svh) !important;
+    min-height: 100svh;
+  }
+
+  .service-scroll.is-scroll-enhanced .service-scroll__sticky {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 100svh;
+    overflow: hidden;
+  }
+
+  .service-scroll.is-scroll-enhanced .service-track {
+    width: max-content;
+    overflow: visible;
+    scroll-snap-type: none;
+    touch-action: pan-y;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .story-panel {
+    width: min(100% - 40px, 760px);
+    gap: 30px;
+  }
+
+  .story-panel__copy {
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav__links a[href="#contact"],
+  .nav__links a[href="contact.html"] {
+    display: inline-flex;
+  }
+
+  .nav__links a[href="#story"],
+  .nav__links a[href="about.html"] {
+    display: none;
+  }
+
+  .nav.is-logo-visible .nav__links a[href="index.html"] {
+    display: none;
+  }
+
+  .service-track {
+    --service-panel-size: min(84vw, 352px);
+  }
+
+  .service-scroll__intro h2 {
+    font-size: clamp(42px, 12.5vw, 58px);
+    line-height: .92;
+  }
+
+  .service-panel {
+    flex-basis: var(--service-panel-size);
+  }
+
+  .atelier {
+    padding-top: 66px;
+    padding-bottom: 78px;
+  }
+
+  .atelier-shot::after {
+    background: linear-gradient(0deg, rgba(15, 12, 9, .04), rgba(15, 12, 9, 0) 42%);
+  }
+
+  .atelier-note {
+    order: -1;
+  }
+
+  .story-section {
+    padding-top: 62px;
+    padding-bottom: 76px;
+  }
+
+  .story-panel {
+    width: min(100% - 28px, 560px);
+    gap: 24px;
+  }
+
+  .story-panel__image {
+    min-height: min(76vw, 360px);
+  }
+
+  .story-panel__copy h2 {
+    font-size: clamp(50px, 14vw, 70px);
+  }
+
+  .story-panel__copy p {
+    font-size: 16px;
+    line-height: 1.68;
+  }
+
+  .footer {
+    padding-bottom: calc(104px + env(safe-area-inset-bottom));
+  }
+
+  .footer__top p {
+    font-size: clamp(31px, 9vw, 42px);
+  }
+
+  .mobile-cta a {
+    min-height: 52px;
+  }
+}

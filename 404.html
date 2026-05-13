@@ -8,14 +8,31 @@
 <script>
   (function () {
     var repoBase = "/kh-woodworks-site/";
+    var knownPages = {
+      "": "",
+      "home": "",
+      "index": "",
+      "services": "services.html",
+      "gallery": "gallery.html",
+      "work": "gallery.html",
+      "about": "about.html",
+      "story": "about.html",
+      "contact": "contact.html",
+      "quote": "contact.html"
+    };
     var isGithubPages = /\.github\.io$/.test(location.hostname);
     var base = isGithubPages || location.pathname.indexOf(repoBase) === 0 ? repoBase : "/";
-    location.replace(location.origin + base + location.search + location.hash);
+    var relativePath = location.pathname.indexOf(repoBase) === 0
+      ? location.pathname.slice(repoBase.length)
+      : location.pathname.replace(/^\/+/, "");
+    var key = relativePath.replace(/\/+$/, "").replace(/\.html$/i, "").toLowerCase();
+    var target = Object.prototype.hasOwnProperty.call(knownPages, key) ? knownPages[key] : "";
+    location.replace(location.origin + base + target + location.search + location.hash);
   }());
 </script>
 </head>
 <body>
-<p><a href="/">Go to KH Woodworks</a></p>
-<p><a href="/kh-woodworks-site/">Open the GitHub Pages mirror</a></p>
+<p><a href="/kh-woodworks-site/">Go to KH Woodworks</a></p>
+<p><a href="/kh-woodworks-site/contact.html">Request a quote</a></p>
 </body>
 </html>
