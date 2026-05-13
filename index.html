@@ -6,7 +6,9 @@
 <title>Custom Cabinets &amp; Woodworking in Hays, KS | KH Woodworks</title>
 <meta name="description" content="KH Woodworks builds custom cabinets, built-in furniture, vanities, mantels, trim, tables, furniture, and millwork for homes and businesses in Hays, KS and surrounding areas. Call or request a quote." />
 <link rel="canonical" href="https://tylerpreisser.github.io/kh-woodworks-site/" />
-<meta name="theme-color" content="#121212" />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#fffaf2" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#120f0c" media="(prefers-color-scheme: dark)" />
 <meta name="apple-mobile-web-app-title" content="KH Woodworks" />
 <meta property="og:title" content="Custom Cabinets &amp; Woodworking in Hays, KS | KH Woodworks" />
 <meta property="og:description" content="Custom cabinetry and woodworking built for homes and businesses in Hays, Kansas and surrounding communities." />
@@ -24,8 +26,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="preload" href="assets/hero-loop-mobile.m4v" as="video" type="video/mp4" media="(max-width: 640px)" />
-<link rel="preload" href="assets/hero-loop.mp4" as="video" type="video/mp4" media="(min-width: 641px)" />
+<link rel="preload" href="assets/hero-poster-mobile.webp" as="image" type="image/webp" media="(max-width: 640px)" fetchpriority="high" />
+<link rel="preload" href="assets/hero-poster.webp" as="image" type="image/webp" media="(min-width: 641px)" fetchpriority="high" />
 <link rel="stylesheet" href="assets/styles.css" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -62,7 +64,7 @@
 <body>
 <header class="nav" data-site-nav>
   <div class="wrap nav__bar">
-    <a class="brand brand--logo" href="index.html" aria-label="KH Woodworks home" data-nav-logo><img class="brand__logo" src="assets/kh-logo-tight.png" alt="KH Woodworks" /></a>
+    <a class="brand brand--logo" href="index.html" aria-label="KH Woodworks home" data-nav-logo><img class="brand__logo" src="assets/kh-logo-tight.webp" srcset="assets/kh-logo-tight-small.webp 260w, assets/kh-logo-tight.webp 403w" sizes="(max-width: 640px) 126px, 220px" alt="KH Woodworks" decoding="async" fetchpriority="high" /></a>
     <nav class="nav__links" aria-label="Primary navigation">
       <a href="index.html" class="is-active" aria-current="page">Home</a>
       <a href="#services">Services</a>
@@ -79,13 +81,13 @@
 
 <main>
   <section class="hero hero--video">
-    <video class="hero__video" autoplay muted loop playsinline preload="auto">
-      <source media="(max-width: 640px)" src="assets/hero-loop-mobile.m4v" type="video/mp4" />
-      <source src="assets/hero-loop.mp4" type="video/mp4" />
+    <video class="hero__video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/hero-poster-mobile.webp" data-poster-mobile="assets/hero-poster-mobile.webp" data-poster-desktop="assets/hero-poster.webp" aria-hidden="true">
+      <source media="(max-width: 640px)" src="assets/hero-loop-mobile-480.mp4" type="video/mp4" />
+      <source src="assets/hero-loop-720.mp4" type="video/mp4" />
     </video>
     <div class="hero__shade"></div>
     <div class="hero__center wrap">
-      <img class="hero__logo" src="assets/kh-logo-tight.png" alt="KH Woodworks logo" />
+      <img class="hero__logo" src="assets/kh-logo-tight.webp" srcset="assets/kh-logo-tight-small.webp 260w, assets/kh-logo-tight.webp 403w" sizes="(max-width: 640px) 78vw, 403px" alt="KH Woodworks logo" decoding="async" fetchpriority="high" />
       <h1>KH Woodworks creates customized cabinets and furniture for homes and commercial businesses in Hays, Kansas and surrounding communities.</h1>
       <a class="scroll-cue" href="#services" aria-label="Scroll down to services"><span>Scroll</span><i></i></a>
     </div>
@@ -98,35 +100,35 @@
       </div>
       <div class="service-track" data-scroll-track>
         <article class="service-panel">
-          <img src="assets/work/green-island.avif" alt="Custom kitchen cabinets with a green island" />
+          <img src="assets/work/webp/green-island.webp" srcset="assets/work/webp/green-island-small.webp 520w, assets/work/webp/green-island.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Custom kitchen cabinets with a green island" loading="eager" decoding="async" fetchpriority="low" />
           <h3>Kitchen Cabinets</h3><p>Custom cabinets using woods like cherry, hickory, ash, maple, and oak, with door fronts, stains, and paint colors selected for your space.</p>
         </article>
         <article class="service-panel">
-          <img src="assets/work/millwork-trim.avif" alt="Custom trim and millwork detail" />
+          <img src="assets/work/webp/millwork-trim.webp" srcset="assets/work/webp/millwork-trim-small.webp 520w, assets/work/webp/millwork-trim.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Custom trim and millwork detail" loading="eager" decoding="async" fetchpriority="low" />
           <h3>Millwork</h3><p>Customized trim with unlimited profiles and shapes to bring a finishing touch to your space.</p>
         </article>
         <article class="service-panel">
-          <img src="assets/work/dark-bath-vanity.avif" alt="Custom bathroom vanity cabinetry" />
+          <img src="assets/work/webp/dark-bath-vanity.webp" srcset="assets/work/webp/dark-bath-vanity-small.webp 520w, assets/work/webp/dark-bath-vanity.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Custom bathroom vanity cabinetry" loading="eager" decoding="async" fetchpriority="low" />
           <h3>Bathroom Vanities</h3><p>Bathroom vanities are offered with a variety of different style options for your space.</p>
         </article>
         <article class="service-panel">
-          <img src="assets/work/pantry-pullout-open.avif" alt="Custom pull-out built-in pantry storage" />
+          <img src="assets/work/webp/pantry-pullout-open.webp" srcset="assets/work/webp/pantry-pullout-open-small.webp 520w, assets/work/webp/pantry-pullout-open.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Custom pull-out built-in pantry storage" loading="eager" decoding="async" fetchpriority="low" />
           <h3>Built-In Furniture</h3><p>Built-in furniture from library shelving to entertainment centers, made from your ideas.</p>
         </article>
         <article class="service-panel">
-          <img src="assets/work/laundry-room.avif" alt="Laundry room cabinetry and countertop" />
+          <img src="assets/work/webp/laundry-room.webp" srcset="assets/work/webp/laundry-room-small.webp 520w, assets/work/webp/laundry-room.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Laundry room cabinetry and countertop" loading="eager" decoding="async" fetchpriority="low" />
           <h3>Laundry &amp; Mudrooms</h3><p>In small spaces, organization is key. KH Woodworks helps add style and functionality.</p>
         </article>
         <article class="service-panel">
-          <img src="assets/work/fireplace-mantel.avif" alt="Custom wood fireplace mantel" />
+          <img src="assets/work/webp/fireplace-mantel.webp" srcset="assets/work/webp/fireplace-mantel-small.webp 520w, assets/work/webp/fireplace-mantel.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Custom wood fireplace mantel" loading="eager" decoding="async" fetchpriority="low" />
           <h3>Fireplace Mantels</h3><p>From farmhouse-rustic to sleek and simple, mantels are built to fit the space perfectly.</p>
         </article>
         <article class="service-panel">
-          <img src="assets/work/commercial-table.avif" alt="Custom commercial table and built-in bench" />
+          <img src="assets/work/webp/commercial-table.webp" srcset="assets/work/webp/commercial-table-small.webp 520w, assets/work/webp/commercial-table.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Custom commercial table and built-in bench" loading="eager" decoding="async" fetchpriority="low" />
           <h3>Commercial Spaces</h3><p>Trim, cabinetry, shelving, and desks for companies and businesses around the Hays, Kansas area.</p>
         </article>
         <article class="service-panel">
-          <img src="assets/work/live-edge-table.avif" alt="Custom live edge wood table" />
+          <img src="assets/work/webp/live-edge-table.webp" srcset="assets/work/webp/live-edge-table-small.webp 520w, assets/work/webp/live-edge-table.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Custom live edge wood table" loading="eager" decoding="async" fetchpriority="low" />
           <h3>Tables</h3><p>From kitchen tables to conference tables, KH Woodworks creates functional and beautiful pieces for your space.</p>
         </article>
       </div>
@@ -136,38 +138,38 @@
   <section class="atelier" id="process" aria-label="Featured KH Woodworks projects">
     <div class="wrap atelier__gallery">
       <figure class="atelier-shot atelier-shot--lead reveal" data-parallax data-speed="-32">
-        <img loading="lazy" src="assets/work/green-island.avif" alt="Custom kitchen cabinets with a green island" />
+        <img loading="lazy" src="assets/work/webp/green-island.webp" srcset="assets/work/webp/green-island-small.webp 520w, assets/work/webp/green-island.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Custom kitchen cabinets with a green island" decoding="async" />
       </figure>
       <figure class="atelier-shot atelier-shot--portrait-a reveal" data-parallax data-speed="36">
-        <img loading="lazy" src="assets/work/dark-bath-vanity.avif" alt="Dark custom bath vanity" />
+        <img loading="lazy" src="assets/work/webp/dark-bath-vanity.webp" srcset="assets/work/webp/dark-bath-vanity-small.webp 520w, assets/work/webp/dark-bath-vanity.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Dark custom bath vanity" decoding="async" />
       </figure>
       <aside class="atelier-shot atelier-note atelier-shot--small-a reveal" data-parallax data-speed="18">
         <span>Featured Work</span>
         <strong>A curated look at the kitchens, vanities, storage, mantels, tables, commercial work, and millwork KH Woodworks builds for each space.</strong>
       </aside>
       <figure class="atelier-shot atelier-shot--wide-a reveal" data-parallax data-speed="-24">
-        <img loading="lazy" src="assets/work/kitchen-warm.avif" alt="Warm wood kitchen cabinetry around a sink" />
+        <img loading="lazy" src="assets/work/webp/kitchen-warm.webp" srcset="assets/work/webp/kitchen-warm-small.webp 520w, assets/work/webp/kitchen-warm.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Warm wood kitchen cabinetry around a sink" decoding="async" />
       </figure>
       <figure class="atelier-shot atelier-shot--detail-a reveal" data-parallax data-speed="26">
-        <img loading="lazy" src="assets/work/fireplace-mantel.avif" alt="Custom white fireplace mantel" />
+        <img loading="lazy" src="assets/work/webp/fireplace-mantel.webp" srcset="assets/work/webp/fireplace-mantel-small.webp 520w, assets/work/webp/fireplace-mantel.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Custom white fireplace mantel" decoding="async" />
       </figure>
       <figure class="atelier-shot atelier-shot--portrait-b reveal" data-parallax data-speed="34">
-        <img loading="lazy" src="assets/work/laundry-mudroom-cabinets.avif" alt="Laundry and mudroom cabinetry" />
+        <img loading="lazy" src="assets/work/webp/laundry-mudroom-cabinets.webp" srcset="assets/work/webp/laundry-mudroom-cabinets-small.webp 520w, assets/work/webp/laundry-mudroom-cabinets.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Laundry and mudroom cabinetry" decoding="async" />
       </figure>
       <figure class="atelier-shot atelier-shot--small-b reveal" data-parallax data-speed="-18">
-        <img loading="lazy" src="assets/work/live-edge-table.avif" alt="Custom live edge table" />
+        <img loading="lazy" src="assets/work/webp/live-edge-table.webp" srcset="assets/work/webp/live-edge-table-small.webp 520w, assets/work/webp/live-edge-table.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Custom live edge table" decoding="async" />
       </figure>
       <figure class="atelier-shot atelier-shot--wide-b reveal" data-parallax data-speed="-30">
-        <img loading="lazy" src="assets/work/wood-kitchen.avif" alt="Finished wood kitchen cabinetry" />
+        <img loading="lazy" src="assets/work/webp/wood-kitchen.webp" srcset="assets/work/webp/wood-kitchen-small.webp 520w, assets/work/webp/wood-kitchen.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Finished wood kitchen cabinetry" decoding="async" />
       </figure>
       <figure class="atelier-shot atelier-shot--square-a reveal" data-parallax data-speed="22">
-        <img loading="lazy" src="assets/work/gray-kitchen-install.avif" alt="Finished kitchen cabinetry with a dark island" />
+        <img loading="lazy" src="assets/work/webp/gray-kitchen-install.webp" srcset="assets/work/webp/gray-kitchen-install-small.webp 520w, assets/work/webp/gray-kitchen-install.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Finished kitchen cabinetry with a dark island" decoding="async" />
       </figure>
       <figure class="atelier-shot atelier-shot--portrait-c reveal" data-parallax data-speed="-26">
-        <img loading="lazy" src="assets/work/bath-vanity-counter.avif" alt="Custom bathroom vanity with countertop" />
+        <img loading="lazy" src="assets/work/webp/bath-vanity-counter.webp" srcset="assets/work/webp/bath-vanity-counter-small.webp 520w, assets/work/webp/bath-vanity-counter.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Custom bathroom vanity with countertop" decoding="async" />
       </figure>
       <figure class="atelier-shot atelier-shot--detail-b reveal" data-parallax data-speed="30">
-        <img loading="lazy" src="assets/work/commercial-table.avif" alt="Custom wood table and built-in bench" />
+        <img loading="lazy" src="assets/work/webp/commercial-table.webp" srcset="assets/work/webp/commercial-table-small.webp 520w, assets/work/webp/commercial-table.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="Custom wood table and built-in bench" decoding="async" />
       </figure>
     </div>
   </section>
@@ -175,7 +177,7 @@
   <section class="story-section" id="story">
     <div class="story-panel reveal">
       <div class="story-panel__image">
-        <img loading="lazy" src="assets/work/live-edge-slab-cutting.avif" alt="KH Woodworks shaping a live edge slab in the shop" />
+        <img loading="lazy" src="assets/work/webp/live-edge-slab-cutting.webp" srcset="assets/work/webp/live-edge-slab-cutting-small.webp 520w, assets/work/webp/live-edge-slab-cutting.webp 900w" sizes="(max-width: 640px) 84vw, (max-width: 980px) 72vw, 520px" alt="KH Woodworks shaping a live edge slab in the shop" decoding="async" />
       </div>
       <div class="story-panel__copy">
         <span class="eyebrow">Family Owned</span>
@@ -188,15 +190,23 @@
 
 <footer class="footer" id="contact">
   <div class="wrap footer__inner">
-    <div class="footer__top">
-      <a class="footer__brand" href="index.html" aria-label="KH Woodworks home"><img src="assets/kh-logo-tight.png" alt="KH Woodworks" /></a>
-      <p>Customized cabinetry, furniture, and millwork for homes and commercial spaces in the Hays, Kansas area.</p>
+    <div class="footer__cta">
+      <div class="footer__cta-copy">
+        <span class="footer__eyebrow">Start a Project</span>
+        <h2>Ready to make the next room fit better?</h2>
+        <p>Send a few project notes, rough dimensions, or inspiration photos. Follow KH Woodworks for finished installs, shop progress, and local project updates.</p>
+      </div>
+      <div class="footer__cta-actions" aria-label="Footer calls to action">
+        <a class="footer__primary" href="contact.html">Request a Quote</a>
+        <a class="footer__social-link" href="https://www.instagram.com/kh_woodworks_co/" target="_blank" rel="noopener" data-initial="IG"><strong>Instagram</strong><span>@kh_woodworks_co</span></a>
+        <a class="footer__social-link" href="https://www.facebook.com/KHWoodworksCo/" target="_blank" rel="noopener" data-initial="FB"><strong>Facebook</strong><span>KH Woodworks Co.</span></a>
+      </div>
     </div>
-    <div class="footer__grid">
-      <div class="footer__column"><h4>Studio</h4><a href="#services">Services</a><a href="#process">Featured Work</a><a href="#story">Our Story</a><a href="#contact">Contact</a></div>
+    <div class="footer__grid footer__grid--compact">
+      <div class="footer__column footer__column--brand"><a class="footer__brand" href="index.html" aria-label="KH Woodworks home"><img src="assets/kh-logo-tight.webp" srcset="assets/kh-logo-tight-small.webp 260w, assets/kh-logo-tight.webp 403w" sizes="(max-width: 640px) 132px, 168px" alt="KH Woodworks" decoding="async" /></a><span>Catharine, KS</span><span>Serving Hays, Ellis County, and surrounding Kansas communities.</span></div>
+      <div class="footer__column"><h4>Studio</h4><a href="#services">Services</a><a href="#process">Featured Work</a><a href="#story">Our Story</a><a href="contact.html">Contact</a></div>
       <div class="footer__column"><h4>Capabilities</h4><span>Kitchen Cabinets</span><span>Built-In Furniture</span><span>Fireplace Mantels</span><span>Commercial Spaces</span></div>
-      <div class="footer__column"><h4>Contact</h4><a href="tel:7858290504">785-829-0504</a><a href="mailto:khwoodworksco@gmail.com">khwoodworksco@gmail.com</a><span>Catharine, KS</span></div>
-      <div class="footer__column"><h4>Follow</h4><a href="https://www.instagram.com/kh_woodworks_co/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/KHWoodworksCo/" target="_blank" rel="noopener">Facebook</a></div>
+      <div class="footer__column"><h4>Contact</h4><a href="tel:7858290504">785-829-0504</a><a href="mailto:khwoodworksco@gmail.com">khwoodworksco@gmail.com</a><a href="contact.html">Quote Form</a></div>
     </div>
     <div class="footer__bottom"><span>© 2026 KH Woodworks</span><span>Serving Hays, Ellis County, and surrounding Kansas communities</span></div>
   </div>
