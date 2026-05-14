@@ -3202,30 +3202,6 @@ html {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .service-scroll {
-    height: auto !important;
-  }
-
-  .service-scroll__sticky {
-    position: relative;
-    height: auto;
-    overflow: hidden;
-    padding: 80px 0;
-  }
-
-  .service-track {
-    width: auto;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    transform: none !important;
-  }
-
-  .service-panel {
-    scroll-snap-align: start;
-  }
-}
-
 /* Final responsive tuning: give the service sequence room and keep the text tile composed. */
 .service-scroll__sticky {
   gap: clamp(46px, 5.8vh, 78px);
@@ -6049,6 +6025,18 @@ body {
     -webkit-overflow-scrolling: auto;
     overscroll-behavior: contain;
     will-change: transform;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .service-scroll.is-scroll-enhanced .service-panel {
+    contain: layout paint style;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .service-scroll.is-scroll-enhanced .service-panel img {
+    transform: translateZ(0);
   }
 
   .nav__menu {
@@ -6120,8 +6108,8 @@ body {
   }
 
   .hero__video {
-    opacity: 0;
-    visibility: hidden;
+    opacity: 1;
+    visibility: visible;
     transition: none !important;
   }
 
@@ -6132,7 +6120,7 @@ body {
 
   .service-panel img,
   .service-panel:hover img {
-    transform: none !important;
+    transform: translateZ(0) !important;
     transition: none !important;
   }
 

@@ -26,8 +26,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="preload" href="assets/hero-poster.webp" as="image" type="image/webp" media="(max-width: 640px)" fetchpriority="high" />
+<link rel="preload" href="assets/hero-poster-mobile.webp" as="image" type="image/webp" media="(max-width: 640px)" fetchpriority="high" />
 <link rel="preload" href="assets/hero-poster.webp" as="image" type="image/webp" media="(min-width: 641px)" fetchpriority="high" />
+<link rel="preload" href="assets/hero-loop-mobile-480.mp4" as="video" type="video/mp4" media="(max-width: 640px)" fetchpriority="high" />
 <link rel="stylesheet" href="assets/styles.css" />
 <script>(function(){var t=localStorage.getItem('kh-theme');var d=t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');})();</script>
 <link rel="icon" href="favicon.ico" sizes="any" />
@@ -86,10 +87,11 @@
 
 <main>
   <section class="hero hero--video">
-    <video class="hero__video" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture controlslist="nodownload nofullscreen noplaybackrate" x-webkit-airplay="deny" data-poster-mobile="assets/hero-poster.webp" data-poster-desktop="assets/hero-poster.webp" aria-hidden="true">
-      <source media="(max-width: 640px)" src="assets/hero-loop-720.mp4" type="video/mp4" />
+    <video class="hero__video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/hero-poster-mobile.webp" disablepictureinpicture controlslist="nodownload nofullscreen noplaybackrate" x-webkit-airplay="deny" data-poster-mobile="assets/hero-poster-mobile.webp" data-poster-desktop="assets/hero-poster.webp" aria-hidden="true">
+      <source media="(max-width: 640px)" src="assets/hero-loop-mobile-480.mp4" type="video/mp4" />
       <source src="assets/hero-loop-720.mp4" type="video/mp4" />
     </video>
+    <script>(function(){var v=document.currentScript&&document.currentScript.previousElementSibling;if(v&&v.play){v.muted=true;v.defaultMuted=true;v.playsInline=true;var p=v.play();if(p&&p.catch)p.catch(function(){});}})();</script>
     <div class="hero__shade"></div>
     <div class="hero__center wrap">
       <img class="hero__logo" src="assets/kh-logo-tight.webp" srcset="assets/kh-logo-tight-small.webp 260w, assets/kh-logo-tight.webp 403w" sizes="(max-width: 640px) 78vw, 403px" alt="KH Woodworks logo" decoding="async" fetchpriority="high" />

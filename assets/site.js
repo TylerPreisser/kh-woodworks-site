@@ -177,7 +177,6 @@
       heroVideo.playsInline = true;
       heroVideo.controls = false;
       heroVideo.removeAttribute("controls");
-      heroVideo.removeAttribute("poster");
       heroVideo.setAttribute("muted", "");
       heroVideo.setAttribute("autoplay", "");
       heroVideo.setAttribute("playsinline", "");
@@ -190,7 +189,7 @@
       if (poster && heroFrame) {
         heroFrame.style.setProperty("--hero-poster", `url("${new URL(poster, window.location.href).href}")`);
       }
-      heroVideo.removeAttribute("poster");
+      if (poster && heroVideo.getAttribute("poster") !== poster) heroVideo.setAttribute("poster", poster);
     };
     setHeroPlaybackAttributes();
     const shouldLoadVideo = true;
@@ -209,9 +208,7 @@
       setHeroPlaybackAttributes();
       const playAttempt = heroVideo.play();
       if (playAttempt && typeof playAttempt.catch === "function") {
-        playAttempt.catch(() => {
-          heroVideo.classList.remove("is-playing");
-        });
+        playAttempt.then(markHeroPlaying).catch(() => {});
       }
     };
     const markHeroPlaying = () => {
@@ -240,8 +237,10 @@
       const desiredUrl = new URL(desiredSource, window.location.href).href;
       const currentUrl = heroVideo.currentSrc || heroVideo.src;
       if (currentUrl !== desiredUrl) {
-        heroVideo.src = desiredSource;
-        heroVideo.load();
+        if (currentUrl) {
+          heroVideo.src = desiredSource;
+          heroVideo.load();
+        }
       }
       playHeroVideo();
     };
@@ -337,6 +336,11 @@
     const nav = document.querySelector(".nav");
     const sticky = scrollSection.querySelector(".service-scroll__sticky");
     let maxTravel = 0;
+    let maxScroll = 1;
+    let sectionStart = 0;
+    let targetTravel = 0;
+    let renderedTravel = 0;
+    let renderFrame = 0;
     let ticking = false;
     let measureQueued = false;
     let lastTravel = null;
@@ -346,23 +350,40 @@
     const viewportWidth = () => Math.round(document.documentElement.clientWidth || window.innerWidth || 1);
     const viewportHeight = () => Math.round(window.innerHeight || document.documentElement.clientHeight || 1);
     const setTrackPosition = (travel) => {
-      const rounded = compactViewport.matches ? Math.round(travel) : Math.round(travel * 1000) / 1000;
+      const rounded = Math.round(travel * 1000) / 1000;
       if (rounded === lastTravel) return;
       lastTravel = rounded;
       scrollTrack.style.setProperty("transform", `translate3d(${-rounded}px,0,0)`, "important");
     };
-    const updateTrack = () => {
+    const calculateTarget = () => {
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      const progress = Math.min(1, Math.max(0, (scrollY - sectionStart) / maxScroll));
+      targetTravel = maxTravel * progress;
+    };
+    const renderTrack = () => {
+      renderFrame = 0;
+      if (compactViewport.matches) {
+        renderedTravel += (targetTravel - renderedTravel) * 0.38;
+        if (Math.abs(targetTravel - renderedTravel) < 0.2) renderedTravel = targetTravel;
+        setTrackPosition(renderedTravel);
+        if (renderedTravel !== targetTravel) renderFrame = requestAnimationFrame(renderTrack);
+      } else {
+        renderedTravel = targetTravel;
+        setTrackPosition(renderedTravel);
+      }
+    };
+    const requestRender = () => {
+      if (!renderFrame) renderFrame = requestAnimationFrame(renderTrack);
+    };
+    const updateTrackTarget = () => {
       ticking = false;
-      const rect = scrollSection.getBoundingClientRect();
-      const stickyH = sticky ? sticky.offsetHeight : viewportHeight();
-      const scrollRange = Math.max(1, scrollSection.offsetHeight - stickyH);
-      const progress = Math.min(1, Math.max(0, -rect.top / scrollRange));
-      setTrackPosition(maxTravel * progress);
+      calculateTarget();
+      requestRender();
     };
     const requestTrackUpdate = () => {
       if (!ticking) {
         ticking = true;
-        requestAnimationFrame(updateTrack);
+        requestAnimationFrame(updateTrackTarget);
       }
     };
     const resetSection = () => {
@@ -371,6 +392,8 @@
       scrollSection.style.removeProperty("--service-scroll-height");
       scrollSection.style.removeProperty("--nav-h");
       scrollTrack.style.removeProperty("transform");
+      targetTravel = 0;
+      renderedTravel = 0;
       lastTravel = null;
     };
     const measureSection = () => {
@@ -384,8 +407,12 @@
       scrollSection.style.setProperty("--nav-h", `${navHeight()}px`);
       scrollSection.style.setProperty("--service-scroll-height", `${Math.ceil(stickyHeight + maxTravel)}px`);
       scrollSection.style.height = `${Math.ceil(stickyHeight + maxTravel)}px`;
+      sectionStart = Math.round(scrollSection.getBoundingClientRect().top + (window.scrollY || window.pageYOffset || 0));
+      maxScroll = Math.max(1, scrollSection.offsetHeight - stickyHeight);
       lastTravel = null;
-      updateTrack();
+      calculateTarget();
+      renderedTravel = targetTravel;
+      setTrackPosition(renderedTravel);
       return true;
     };
     const requestMeasure = () => {
