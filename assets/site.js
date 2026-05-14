@@ -177,6 +177,7 @@
       heroVideo.playsInline = true;
       heroVideo.controls = false;
       heroVideo.removeAttribute("controls");
+      heroVideo.removeAttribute("poster");
       heroVideo.setAttribute("muted", "");
       heroVideo.setAttribute("autoplay", "");
       heroVideo.setAttribute("playsinline", "");
@@ -189,7 +190,7 @@
       if (poster && heroFrame) {
         heroFrame.style.setProperty("--hero-poster", `url("${new URL(poster, window.location.href).href}")`);
       }
-      if (poster && heroVideo.getAttribute("poster") !== poster) heroVideo.setAttribute("poster", poster);
+      heroVideo.removeAttribute("poster");
     };
     setHeroPlaybackAttributes();
     const shouldLoadVideo = true;
