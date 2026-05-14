@@ -6586,57 +6586,7 @@ body {
   overflow: hidden;
 }
 
-.quote-form-head {
-  display: grid;
-  align-content: end;
-  gap: 18px;
-  min-height: 100%;
-  padding: clamp(34px, 5vw, 58px);
-  border-right: 1px solid rgba(255, 250, 242, .14);
-  background:
-    linear-gradient(180deg, rgba(18, 13, 10, .12), rgba(18, 13, 10, .68)),
-    url("work/webp/live-edge-slab-detail.webp") center / cover;
-}
-
-.quote-form-head .eyebrow,
 .quote-form__intro .eyebrow {
-  color: #d7b78b;
-}
-
-.quote-form-head h1 {
-  max-width: 11ch;
-  margin: 0;
-  color: #fffaf2;
-  font-family: var(--serif);
-  font-size: clamp(44px, 5vw, 74px);
-  font-weight: 700;
-  letter-spacing: 0;
-  line-height: .92;
-}
-
-.quote-form-head p {
-  max-width: 31rem;
-  margin: 0;
-  color: rgba(255, 250, 242, .76);
-  font-size: 16px;
-}
-
-.quote-form-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 16px;
-  padding-top: 8px;
-}
-
-.quote-form-links a {
-  color: #fffaf2;
-  font-size: 13px;
-  font-weight: 800;
-  overflow-wrap: anywhere;
-}
-
-.quote-form-links a:hover,
-.quote-form-links a:focus-visible {
   color: #d7b78b;
 }
 
@@ -6739,11 +6689,6 @@ body {
     max-width: 680px;
   }
 
-  .quote-form-head {
-    min-height: 0;
-    border-right: 0;
-    border-bottom: 1px solid rgba(255, 250, 242, .14);
-  }
 }
 
 @media (max-width: 640px) {
@@ -6762,31 +6707,6 @@ body {
     border-radius: 0;
     background: transparent;
     box-shadow: none;
-  }
-
-  .quote-form-head {
-    justify-items: center;
-    gap: 14px;
-    padding: 0 4px 24px;
-    border: 0;
-    background: transparent;
-    text-align: center;
-  }
-
-  .quote-form-head h1 {
-    max-width: 10.5ch;
-    font-size: clamp(40px, 11vw, 52px);
-    line-height: .96;
-    text-align: center;
-  }
-
-  .quote-form-head p {
-    display: none;
-  }
-
-  .quote-form-links {
-    justify-content: center;
-    gap: 8px 14px;
   }
 
   .quote-form {
@@ -6814,5 +6734,94 @@ body {
   .quote-form__submit {
     width: 100%;
     border-radius: 18px;
+  }
+}
+
+/* Mobile contact correction: form-first layout with a compact heading and uniform field rhythm. */
+.quote-shell {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 760px;
+}
+
+.quote-form {
+  width: 100%;
+}
+
+.quote-form__intro h1 {
+  max-width: none;
+  margin: 0;
+  color: #fffaf2;
+  font-family: var(--serif);
+  font-size: clamp(40px, 5.2vw, 58px);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: .96;
+}
+
+.quote-form .field {
+  display: grid;
+  gap: 10px;
+}
+
+.quote-form .field label {
+  margin: 0;
+}
+
+.quote-form .field input,
+.quote-form .field select,
+.quote-form .field textarea {
+  width: 100%;
+}
+
+.quote-form__submit {
+  display: inline-flex;
+  min-width: 136px;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .quote-section {
+    padding: calc(var(--nav-height, 76px) + 34px + env(safe-area-inset-top)) 0 calc(112px + env(safe-area-inset-bottom));
+    background: #15120f !important;
+  }
+
+  .quote-shell {
+    max-width: none;
+  }
+
+  .quote-form {
+    gap: 18px;
+    padding: 20px 18px;
+  }
+
+  .quote-form__intro {
+    justify-items: start;
+    gap: 8px;
+    padding-bottom: 0;
+    text-align: left;
+  }
+
+  .quote-form__intro h1 {
+    font-size: clamp(38px, 11vw, 48px);
+    line-height: 1;
+  }
+
+  .quote-form .field-row {
+    gap: 18px;
+  }
+
+  .quote-form .field input,
+  .quote-form .field select {
+    min-height: 58px;
+  }
+
+  .quote-form .field textarea {
+    min-height: 142px;
+  }
+
+  .quote-form__submit {
+    min-height: 56px;
+    margin-top: 2px;
+    padding-inline: 20px;
   }
 }
