@@ -1,5 +1,13 @@
 (function () {
   const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+  const onMediaQueryChange = (mediaQuery, handler) => {
+    if (!mediaQuery) return;
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", handler);
+    } else if (typeof mediaQuery.addListener === "function") {
+      mediaQuery.addListener(handler);
+    }
+  };
 
   // ── Theme toggle: dark/light mode ──
   const THEME_KEY = "kh-theme";
@@ -162,6 +170,21 @@
   if (heroVideo) {
     const heroFrame = heroVideo.closest(".hero--video");
     const heroViewport = window.matchMedia("(max-width: 640px)");
+    const setHeroPlaybackAttributes = () => {
+      heroVideo.muted = true;
+      heroVideo.defaultMuted = true;
+      heroVideo.autoplay = true;
+      heroVideo.playsInline = true;
+      heroVideo.controls = false;
+      heroVideo.removeAttribute("controls");
+      heroVideo.removeAttribute("poster");
+      heroVideo.setAttribute("muted", "");
+      heroVideo.setAttribute("autoplay", "");
+      heroVideo.setAttribute("playsinline", "");
+      heroVideo.setAttribute("webkit-playsinline", "");
+      heroVideo.setAttribute("disablepictureinpicture", "");
+      heroVideo.setAttribute("x-webkit-airplay", "deny");
+    };
     const setHeroPoster = () => {
       const poster = heroViewport.matches ? heroVideo.dataset.posterMobile : heroVideo.dataset.posterDesktop;
       if (poster && heroFrame) {
@@ -169,21 +192,8 @@
       }
       heroVideo.removeAttribute("poster");
     };
-    heroVideo.muted = true;
-    heroVideo.defaultMuted = true;
-    heroVideo.autoplay = true;
-    heroVideo.playsInline = true;
-    heroVideo.controls = false;
-    heroVideo.removeAttribute("controls");
-    heroVideo.removeAttribute("poster");
-    heroVideo.setAttribute("muted", "");
-    heroVideo.setAttribute("autoplay", "");
-    heroVideo.setAttribute("playsinline", "");
-    heroVideo.setAttribute("webkit-playsinline", "");
-    heroVideo.setAttribute("disablepictureinpicture", "");
-    heroVideo.setAttribute("x-webkit-airplay", "deny");
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    const shouldLoadVideo = !reduceMotion;
+    setHeroPlaybackAttributes();
+    const shouldLoadVideo = true;
     const updateHeroPoster = () => {
       setHeroPoster();
     };
@@ -196,15 +206,7 @@
       return sources[0]?.getAttribute("src");
     };
     const playHeroVideo = () => {
-      heroVideo.muted = true;
-      heroVideo.defaultMuted = true;
-      heroVideo.controls = false;
-      heroVideo.removeAttribute("controls");
-      heroVideo.removeAttribute("poster");
-      heroVideo.setAttribute("muted", "");
-      heroVideo.setAttribute("autoplay", "");
-      heroVideo.setAttribute("playsinline", "");
-      heroVideo.setAttribute("webkit-playsinline", "");
+      setHeroPlaybackAttributes();
       const playAttempt = heroVideo.play();
       if (playAttempt && typeof playAttempt.catch === "function") {
         playAttempt.catch(() => {
@@ -230,7 +232,11 @@
         return;
       }
       const desiredSource = sourceForViewport();
-      if (!desiredSource) return;
+      if (!desiredSource) {
+        heroVideo.classList.add("is-poster-only");
+        return;
+      }
+      heroVideo.classList.remove("is-poster-only");
       const desiredUrl = new URL(desiredSource, window.location.href).href;
       const currentUrl = heroVideo.currentSrc || heroVideo.src;
       if (currentUrl !== desiredUrl) {
@@ -239,11 +245,24 @@
       }
       playHeroVideo();
     };
+    heroVideo.addEventListener("loadeddata", () => {
+      markHeroPlaying();
+      if (shouldLoadVideo && heroVideo.paused) playHeroVideo();
+    });
+    heroVideo.addEventListener("canplay", () => {
+      markHeroPlaying();
+      if (shouldLoadVideo && heroVideo.paused) playHeroVideo();
+    });
+    if (heroVideo.readyState >= 2) markHeroPlaying();
     syncHeroVideoSource();
     window.addEventListener("load", () => {
       if (shouldLoadVideo) playHeroVideo();
+      markHeroPlaying();
     }, { once: true });
-    heroViewport.addEventListener("change", syncHeroVideoSource);
+    window.addEventListener("pageshow", () => {
+      if (shouldLoadVideo) playHeroVideo();
+    });
+    onMediaQueryChange(heroViewport, syncHeroVideoSource);
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden && shouldLoadVideo) playHeroVideo();
     });
@@ -260,7 +279,7 @@
     element.style.setProperty("--reveal-delay", `${Math.min(index, 8) * 55}ms`);
   });
 
-  if (!reduceMotion && "IntersectionObserver" in window) {
+  if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -318,8 +337,6 @@
     const nav = document.querySelector(".nav");
     const sticky = scrollSection.querySelector(".service-scroll__sticky");
     let maxTravel = 0;
-    let maxScroll = 1;
-    let sectionStart = 0;
     let ticking = false;
     let measureQueued = false;
     let lastTravel = null;
@@ -336,8 +353,10 @@
     };
     const updateTrack = () => {
       ticking = false;
-      if (reduceMotion) return;
-      const progress = Math.min(1, Math.max(0, ((window.scrollY || window.pageYOffset || 0) - sectionStart) / maxScroll));
+      const rect = scrollSection.getBoundingClientRect();
+      const stickyH = sticky ? sticky.offsetHeight : viewportHeight();
+      const scrollRange = Math.max(1, scrollSection.offsetHeight - stickyH);
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollRange));
       setTrackPosition(maxTravel * progress);
     };
     const requestTrackUpdate = () => {
@@ -355,18 +374,16 @@
       lastTravel = null;
     };
     const measureSection = () => {
-      if (reduceMotion) {
-        resetSection();
-        return false;
-      }
       scrollSection.classList.add("is-scroll-enhanced");
       const stickyHeight = Math.max(1, Math.round(sticky?.offsetHeight || viewportHeight()));
       maxTravel = Math.max(0, Math.ceil(scrollTrack.scrollWidth - viewportWidth()));
+      if (maxTravel < 2) {
+        resetSection();
+        return false;
+      }
       scrollSection.style.setProperty("--nav-h", `${navHeight()}px`);
       scrollSection.style.setProperty("--service-scroll-height", `${Math.ceil(stickyHeight + maxTravel)}px`);
       scrollSection.style.height = `${Math.ceil(stickyHeight + maxTravel)}px`;
-      sectionStart = scrollSection.offsetTop;
-      maxScroll = Math.max(1, scrollSection.offsetHeight - stickyHeight);
       lastTravel = null;
       updateTrack();
       return true;
@@ -395,11 +412,7 @@
     window.addEventListener("scroll", requestTrackUpdate, { passive: true });
     window.addEventListener("resize", handleResize);
     window.addEventListener("load", requestMeasure);
-    if (compactViewport.addEventListener) {
-      compactViewport.addEventListener("change", requestMeasure);
-    } else if (compactViewport.addListener) {
-      compactViewport.addListener(requestMeasure);
-    }
+    onMediaQueryChange(compactViewport, requestMeasure);
   }
 
   const parallaxItems = $$("[data-parallax]");
@@ -433,6 +446,6 @@
     window.addEventListener("scroll", requestParallax, { passive: true });
     window.addEventListener("resize", requestParallax);
     window.addEventListener("load", updateParallax);
-    parallaxDesktop.addEventListener("change", updateParallax);
+    onMediaQueryChange(parallaxDesktop, updateParallax);
   }
 })();

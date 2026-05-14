@@ -6103,17 +6103,16 @@ body {
   body,
   .hero__logo,
   .hero__center h1,
-  .scroll-cue,
-  .reveal,
-  .motion-reveal {
+  .scroll-cue {
     animation: none !important;
     transition: none !important;
   }
 
-  .reveal,
-  .motion-reveal {
-    opacity: 1 !important;
-    transform: none !important;
+  .atelier-shot.reveal,
+  .atelier-shot.motion-reveal,
+  .story-panel.reveal,
+  .story-panel.motion-reveal {
+    transition-duration: .62s;
   }
 
   .hero--video {
