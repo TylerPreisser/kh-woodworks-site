@@ -323,6 +323,8 @@
         `Phone: ${data.get("phone") || ""}`,
         `Location: ${data.get("location") || ""}`,
         `Project type: ${data.get("project") || ""}`,
+        `Timeline: ${data.get("timeline") || ""}`,
+        `Budget range: ${data.get("budget") || ""}`,
         "",
         "Project notes:",
         data.get("message") || ""

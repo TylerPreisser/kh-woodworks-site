@@ -33,51 +33,60 @@
 <header class="nav" data-site-nav>
   <div class="wrap nav__bar">
     <a class="brand brand--logo" href="index.html" aria-label="KH Woodworks home" data-nav-logo><img class="brand__logo" src="assets/kh-logo-tight.webp" srcset="assets/kh-logo-tight-small.webp 260w, assets/kh-logo-tight.webp 403w" sizes="(max-width: 640px) 126px, 220px" alt="KH Woodworks" decoding="async" fetchpriority="high" /></a>
-    <nav class="nav__links" aria-label="Primary navigation"><a href="index.html">Home</a><a href="services.html">Services</a><a href="gallery.html">Gallery</a><a href="about.html">About</a><a href="contact.html" class="is-active" aria-current="page">Contact</a></nav>
+    <nav class="nav__links" aria-label="Primary navigation"><a href="index.html">Home</a><a href="index.html#services">Services</a><a href="index.html#process">Gallery</a><a href="index.html#story">About</a><a href="contact.html" class="is-active" aria-current="page">Contact</a></nav>
     <div class="nav__actions"><a class="nav__phone" href="tel:7858290504">785-829-0504</a><a class="nav__quote" href="#quote">Request a Quote</a><button class="nav__theme-toggle" type="button" aria-label="Toggle dark mode"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div>
   </div>
 </header>
-<main>
-  <section class="page-hero">
+<main class="quote-page">
+  <section class="quote-section" id="quote" aria-labelledby="quote-title">
     <div class="wrap">
-      <span class="eyebrow">Request a Quote</span>
-      <h1>Contact KH Woodworks to learn more about the process.</h1>
-      <p>Bring KH Woodworks your custom design, or start with your specific space's dimensions. Call or email to see what can be done for your space.</p>
+      <div class="quote-shell reveal">
+        <div class="quote-form-head">
+          <span class="eyebrow">KH Woodworks</span>
+          <h1>Start Your Custom Build</h1>
+          <p>Share the project details, rough dimensions, inspiration, or timeline. The form opens a prepared email so photos and drawings can be attached before sending.</p>
+          <div class="quote-form-links" aria-label="Direct contact options">
+            <a href="tel:7858290504">785-829-0504</a>
+            <a href="mailto:khwoodworksco@gmail.com">khwoodworksco@gmail.com</a>
+          </div>
+        </div>
+
+        <form class="quote-form" data-quote-form>
+          <div class="quote-form__intro">
+            <span class="eyebrow">Project Notes</span>
+            <h2 id="quote-title">Tell us what you would like built.</h2>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" required /></div>
+            <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required /></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" /></div>
+            <div class="field"><label for="location">Project Location</label><input id="location" name="location" type="text" placeholder="Hays, KS" /></div>
+          </div>
+          <div class="field">
+            <label for="project">Project Type</label>
+            <select id="project" name="project">
+              <option>Kitchen cabinets</option>
+              <option>Bathroom vanity</option>
+              <option>Built-ins or storage</option>
+              <option>Fireplace mantel</option>
+              <option>Laundry room or mudroom</option>
+              <option>Custom trim or millwork</option>
+              <option>Commercial millwork</option>
+              <option>Table or custom furniture</option>
+              <option>Still figuring it out</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="timeline">Timeline</label><input id="timeline" name="timeline" type="text" placeholder="As soon as possible, this summer, flexible" /></div>
+            <div class="field"><label for="budget">Budget Range</label><input id="budget" name="budget" type="text" placeholder="Optional" /></div>
+          </div>
+          <div class="field"><label for="message">Tell us about the project</label><textarea id="message" name="message" placeholder="Room photos, rough dimensions, style direction, storage needs, timeline, or anything else useful."></textarea></div>
+          <button class="btn quote-form__submit" type="submit">Create Email Request</button>
+        </form>
+      </div>
     </div>
-  </section>
-  <section class="wrap contact-grid" id="quote">
-    <form class="contact-form reveal" data-quote-form>
-      <div class="field-row">
-        <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" required /></div>
-        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required /></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" /></div>
-        <div class="field"><label for="location">Project Location</label><input id="location" name="location" type="text" placeholder="Hays, KS" /></div>
-      </div>
-      <div class="field">
-        <label for="project">Project Type</label>
-        <select id="project" name="project">
-          <option>Kitchen cabinets</option>
-          <option>Bathroom vanity</option>
-          <option>Built-ins or storage</option>
-          <option>Fireplace mantel</option>
-          <option>Laundry room or mudroom</option>
-          <option>Custom trim or millwork</option>
-          <option>Commercial millwork</option>
-          <option>Table or custom furniture</option>
-          <option>Still figuring it out</option>
-        </select>
-      </div>
-      <div class="field"><label for="message">Tell us about the project</label><textarea id="message" name="message" placeholder="Room photos, rough dimensions, style direction, storage needs, timeline, or anything else useful."></textarea></div>
-      <button class="btn btn--dark" type="submit">Create Email Request</button>
-    </form>
-    <aside class="contact-info reveal">
-      <div class="contact-box"><h2>Call KH Woodworks</h2><a href="tel:7858290504">785-829-0504</a><p>Contact KH Woodworks to discover your options for your space.</p></div>
-      <div class="contact-box"><h3>Email</h3><a href="mailto:khwoodworksco@gmail.com">khwoodworksco@gmail.com</a><p>Ask about custom cabinets, furniture, millwork, vanities, mantels, laundry rooms, mudrooms, or commercial spaces.</p></div>
-      <div class="contact-box"><h3>Service Area</h3><p>Hays, Kansas and surrounding communities including Salina, Great Bend, WaKeeney, and the Ellis County area.</p></div>
-      <div class="contact-box"><h3>Common Projects</h3><p>Kitchen cabinets, bathroom vanities, built-in furniture, mantels, custom trim, laundry rooms, mudrooms, tables, and commercial millwork.</p></div>
-    </aside>
   </section>
 </main>
 <footer class="footer">
@@ -97,8 +106,8 @@
     </div>
     <div class="footer__grid footer__grid--compact">
       <div class="footer__column footer__column--brand"><a class="footer__brand" href="index.html" aria-label="KH Woodworks home"><img src="assets/kh-logo-tight.webp" srcset="assets/kh-logo-tight-small.webp 260w, assets/kh-logo-tight.webp 403w" sizes="(max-width: 640px) 132px, 168px" alt="KH Woodworks" decoding="async" /></a><span>Catharine, KS</span><span>Serving Hays, Ellis County, and surrounding Kansas communities.</span></div>
-      <div class="footer__column"><h4>Pages</h4><a href="services.html">Services</a><a href="gallery.html">Gallery</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
-      <div class="footer__column"><h4>Services</h4><a href="services.html#kitchens">Kitchen Cabinets</a><a href="services.html#trim">Millwork</a><a href="services.html#built-ins">Built-In Furniture</a><a href="services.html#tables">Tables</a></div>
+      <div class="footer__column"><h4>Studio</h4><a href="index.html#services">Services</a><a href="index.html#process">Featured Work</a><a href="index.html#story">Our Story</a><a href="contact.html">Contact</a></div>
+      <div class="footer__column"><h4>Capabilities</h4><span>Kitchen Cabinets</span><span>Built-In Furniture</span><span>Fireplace Mantels</span><span>Commercial Spaces</span></div>
       <div class="footer__column"><h4>Contact</h4><a href="tel:7858290504">785-829-0504</a><a href="mailto:khwoodworksco@gmail.com">khwoodworksco@gmail.com</a><a href="#quote">Quote Form</a><a href="https://www.instagram.com/kh_woodworks_co/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/KHWoodworksCo/" target="_blank" rel="noopener">Facebook</a></div>
     </div>
     <div class="footer__bottom"><span>© 2026 KH Woodworks. All rights reserved.</span><span>Serving Hays, Ellis County, and surrounding Kansas communities</span></div>
