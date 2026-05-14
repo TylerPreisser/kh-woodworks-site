@@ -6825,3 +6825,92 @@ body {
     padding-inline: 20px;
   }
 }
+
+/* Final hero startup: no source reload, no premature mobile video flash, matching footer canvas. */
+.hero__video {
+  animation: none !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .14s linear;
+}
+
+.hero__video.is-playing {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 640px) {
+  .hero__video {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateZ(0) !important;
+  }
+
+  .hero__video.is-playing {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .footer {
+    background: var(--paper) !important;
+  }
+}
+
+/* Final typography system: one editorial serif and one utility sans across the site. */
+body,
+button,
+input,
+select,
+textarea,
+.nav,
+.nav__links,
+.nav__actions,
+.btn,
+.eyebrow,
+.gallery-filter,
+.field,
+.footer__primary,
+.footer__action-link,
+.footer__social-link,
+.footer__column,
+.footer__bottom,
+.menu-overlay,
+.quote-form,
+.quote-form__submit {
+  font-family: var(--sans);
+}
+
+.hero h1,
+.hero__content h1,
+.section__head h2,
+.service-scroll__intro h2,
+.service-card h3,
+.service-tile h3,
+.work-card h3,
+.answer-block h2,
+.process__step h3,
+.split h2,
+.proof-grid h3,
+.faq summary,
+.cta h2,
+.page-hero h1,
+.gallery-grid h3,
+.contact-box h2,
+.contact-box h3,
+.story-panel__copy h2,
+.footer__cta h2,
+.quote-hero h1,
+.quote-section h2,
+.quote-form__intro h1,
+.quote-form__intro h2 {
+  font-family: var(--serif);
+}
+
+.footer h4,
+.field label,
+.gallery-grid span,
+.process__step span,
+.quote-hero .eyebrow,
+.quote-section .eyebrow {
+  font-family: var(--sans);
+}

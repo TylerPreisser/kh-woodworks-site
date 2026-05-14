@@ -190,85 +190,55 @@
       if (poster && heroFrame) {
         heroFrame.style.setProperty("--hero-poster", `url("${new URL(poster, window.location.href).href}")`);
       }
-      heroVideo.removeAttribute("poster");
-    };
-    setHeroPlaybackAttributes();
-    const shouldLoadVideo = true;
-    const updateHeroPoster = () => {
-      setHeroPoster();
-    };
-    const sourceForViewport = () => {
-      const sources = $$("source", heroVideo).filter((source) => {
-        const media = source.getAttribute("media");
-        const type = source.getAttribute("type");
-        return (!media || window.matchMedia(media).matches) && (!type || heroVideo.canPlayType(type));
-      });
-      return sources[0]?.getAttribute("src");
-    };
-    const playHeroVideo = () => {
-      setHeroPlaybackAttributes();
-      const playAttempt = heroVideo.play();
-      if (playAttempt && typeof playAttempt.catch === "function") {
-        playAttempt.then(markHeroPlaying).catch(() => {});
-      }
     };
     const markHeroPlaying = () => {
       if (!heroVideo.paused && heroVideo.readyState >= 2) {
         heroVideo.classList.add("is-playing");
       }
     };
+    const playHeroVideo = () => {
+      setHeroPlaybackAttributes();
+      const playAttempt = heroVideo.play();
+      if (playAttempt && typeof playAttempt.then === "function") {
+        playAttempt.then(markHeroPlaying).catch(() => {});
+      } else {
+        markHeroPlaying();
+      }
+    };
+    setHeroPlaybackAttributes();
+    setHeroPoster();
     heroVideo.addEventListener("playing", markHeroPlaying);
     heroVideo.addEventListener("timeupdate", markHeroPlaying, { once: true });
     heroVideo.addEventListener("pause", () => {
       if (!heroVideo.ended) heroVideo.classList.remove("is-playing");
     });
-    const syncHeroVideoSource = () => {
-      updateHeroPoster();
-      if (!shouldLoadVideo) {
-        heroVideo.removeAttribute("src");
-        heroVideo.classList.add("is-poster-only");
-        return;
-      }
-      const desiredSource = sourceForViewport();
-      if (!desiredSource) {
-        heroVideo.classList.add("is-poster-only");
-        return;
-      }
-      heroVideo.classList.remove("is-poster-only");
-      const desiredUrl = new URL(desiredSource, window.location.href).href;
-      const currentUrl = heroVideo.currentSrc || heroVideo.src;
-      if (currentUrl !== desiredUrl) {
-        if (currentUrl) {
-          heroVideo.src = desiredSource;
-          heroVideo.load();
-        }
-      }
-      playHeroVideo();
-    };
     heroVideo.addEventListener("loadeddata", () => {
       markHeroPlaying();
-      if (shouldLoadVideo && heroVideo.paused) playHeroVideo();
+      if (heroVideo.paused) playHeroVideo();
     });
     heroVideo.addEventListener("canplay", () => {
       markHeroPlaying();
-      if (shouldLoadVideo && heroVideo.paused) playHeroVideo();
+      if (heroVideo.paused) playHeroVideo();
     });
     if (heroVideo.readyState >= 2) markHeroPlaying();
-    syncHeroVideoSource();
+    playHeroVideo();
     window.addEventListener("load", () => {
-      if (shouldLoadVideo) playHeroVideo();
+      playHeroVideo();
       markHeroPlaying();
     }, { once: true });
     window.addEventListener("pageshow", () => {
-      if (shouldLoadVideo) playHeroVideo();
+      playHeroVideo();
     });
-    onMediaQueryChange(heroViewport, syncHeroVideoSource);
+    onMediaQueryChange(heroViewport, () => {
+      setHeroPoster();
+      playHeroVideo();
+    });
     document.addEventListener("visibilitychange", () => {
-      if (!document.hidden && shouldLoadVideo) playHeroVideo();
+      if (!document.hidden) playHeroVideo();
     });
     ["touchstart", "pointerdown", "click"].forEach((eventName) => {
       window.addEventListener(eventName, () => {
-        if (shouldLoadVideo && heroVideo.paused) playHeroVideo();
+        if (heroVideo.paused) playHeroVideo();
       }, { passive: true, once: true });
     });
   }
