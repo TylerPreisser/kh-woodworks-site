@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c 'D=\"${CLAUDE_PROJECT_DIR:-.}\"; [ -f \"$D/.claude/hooks/block-live-deploy.sh\" ] || D=\"$D/..\"; exec sh \"$D/.claude/hooks/block-live-deploy.sh\"'",
+            "timeout": 3000
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c 'D=\"${CLAUDE_PROJECT_DIR:-.}\"; [ -f \"$D/.claude/hooks/protect-adr-and-secrets.sh\" ] || D=\"$D/..\"; exec sh \"$D/.claude/hooks/protect-adr-and-secrets.sh\"'",
+            "timeout": 3000
+          }
+        ]
+      }
+    ]
+  }
+}
