@@ -64,5 +64,6 @@ Work through these in order. Every step's command and output stays in the transc
        | astrus-ai               | cde  (integration trunk; dev is retired — never target it)  |
        | astrus1                 | dev  (QA tracks dev, not main)                              |
        | astrus-ai-integration   | the default branch (gh repo view --json defaultBranchRef)   |
-     gh must be on the tpreisser account (pushes only land as tpreisser).
+     Astrus: gh must be on the tpreisser account. Preisser Solutions repos: gh must be on
+     TylerPreisser -- never tpreisser.
      Never assign or request review from Nate (no --assignee / --reviewer naming him). -->

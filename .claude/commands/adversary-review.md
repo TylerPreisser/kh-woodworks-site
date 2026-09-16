@@ -47,5 +47,6 @@ Relay the subagent's report unchanged. Do not soften, merge, or re-grade its fin
 verifier is not the author, and neither are you.
 
 <!-- OPTIONAL — project-specific facts. Delete or replace for your repo.
-     Astrus example: `gh` must be on the `tpreisser` account (the only account whose pushes
-     land); if the line above shows anything else run `gh auth switch --user tpreisser`. -->
+     Preisser Solutions repos: `gh` must be on the `TylerPreisser` account (every Preisser repo
+     lives there); if the line above shows anything else run `gh auth switch --user TylerPreisser`.
+     (Astrus / R-Squared-AI repos are the exception: they use `tpreisser`.) -->
