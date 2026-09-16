@@ -1,5 +1,8 @@
 # ADR-NNNN: <the decision, stated as a one-line rule>
-Status: Proposed — <YYYY-MM-DD> (<where the owner stated it: conversation / ticket / commit>) — Owner: <name>
+Status: <Accepted|Proposed> — <YYYY-MM-DD> (<where the owner stated it: conversation / ticket / commit>) — Owner: <name>
+<!-- Replace the whole <...> with ONE word. `Accepted` is the DEFAULT — decisions are recorded
+     as they are made; use `Proposed` only when the owner has not yet landed on it. Once
+     Accepted this file is immutable: supersede with a new number, never edit. -->
 Supersedes / Superseded by: —
 
 ## Context
@@ -21,9 +24,11 @@ Supersedes / Superseded by: —
 - Anything the record does not settle. Say so plainly rather than inventing a position.
 
 ## Status note for review agents
-This is a PROPOSED decision: not yet binding. Once the owner flips the status line to Accepted,
-code that conforms to it is CONFORMANT, not defective. Objections go under "Decision Concerns" —
-never as a bug or blocking finding.
+While `Accepted`, this decision is BINDING: code that conforms to it is CONFORMANT, not defective —
+do not flag it, do not "fix" it, do not recommend re-adding what it removed. Objections go under
+"Decision Concerns" citing this ADR number — never as a bug or a blocking finding. While `Proposed`,
+it is not yet binding. Disagreement with a settled decision is resolved by a NEW superseding ADR,
+never by editing this one.
 
 ## Revisit criteria
 - The observable event that would reopen this decision (a stakeholder request with a source, a
